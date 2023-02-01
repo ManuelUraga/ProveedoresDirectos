@@ -1,0 +1,30 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="grid_0_25">2dp</dimen>
+    <dimen name="grid_0_5">4dp</dimen>
+    <dimen name="grid_1">8dp</dimen>
+    <dimen name="grid_1_5">12dp</dimen>
+    <dimen name="grid_2">16dp</dimen>
+    <dimen name="grid_2_5">20dp</dimen>
+    <dimen name="grid_3">24dp</dimen>
+    <dimen name="grid_3_5">28dp</dimen>
+    <dimen name="grid_4">32dp</dimen>
+    <dimen name="grid_4_5">36dp</dimen>
+    <dimen name="grid_5">40dp</dimen>
+    <dimen name="grid_5_5">44dp</dimen>
+    <dimen name="grid_6">48dp</dimen>
+    <dimen name="grid_6_5">56dp</dimen>
+    <dimen name="grid_7">60dp</dimen>
+
+    <dimen name="elevation_5">5</dimen>
+    <dimen name="elevation_10">10</dimen>
+    <dimen name="elevation_15">15</dimen>
+
+    <dimen name="button_height">58dp</dimen>
+    <dimen name="edit_text_height">35</dimen>
+    <dimen name="edit_text_width">300</dimen>
+
+    <dimen name="radius_small">4dp</dimen>
+    <dimen name="radius_medium">8dp</dimen>
+    <dimen name="radius_big">12dp</dimen>
+</resources>
