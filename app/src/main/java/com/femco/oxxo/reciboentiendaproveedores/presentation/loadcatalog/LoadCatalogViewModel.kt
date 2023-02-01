@@ -3,8 +3,6 @@ package com.femco.oxxo.reciboentiendaproveedores.presentation.loadcatalog
 import android.app.Application
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -25,21 +23,20 @@ class LoadCatalogViewModel @Inject constructor(
 
     fun setUp(arguments: Bundle?) {}
 
-    private val _listSKU = MutableLiveData<List<SKUProviders>>()
-    var listSKU: LiveData<List<SKUProviders>> = _listSKU
+    val loadCatalogState = MutableLiveData<LoadCatalogState>()
 
-    private val _namePath = MutableLiveData<String>()
-    var namePath: LiveData<String> = _namePath
+    var listSku: MutableList<SKUProviders> = mutableListOf()
 
-    fun readFile(uri: Uri){
-        _namePath.postValue( uri.path?.let { File(it).name } ?: "" )
-        val csvFile = application.contentResolver.openInputStream(uri)
+    fun getNameFileAndUri(uri: Uri) {
+        val csvFile = uri.let { application.contentResolver.openInputStream(it) }
         val isr = InputStreamReader(csvFile)
         mappingIntoObject(BufferedReader(isr).readLines())
+        uri.path?.let {
+            loadCatalogState.value = LoadCatalogState.NameFile(File(it).name)
+        }
     }
 
     private fun mappingIntoObject(readLines: List<String>) {
-        val listSKU = mutableListOf<SKUProviders>()
         val firstElement = readLines[0]
         for (line in readLines) {
             if (!line.contentEquals(firstElement)) {
@@ -50,20 +47,18 @@ class LoadCatalogViewModel @Inject constructor(
                     description = item[2],
                     supplySource = item[3]
                 )
-                listSKU.add(skuProviders)
+                listSku.add(skuProviders)
             }
         }
-        _listSKU.postValue(listSKU)
     }
 
-    fun saveSKUDataInDB(){
+    fun saveSKUDataInDB() {
         viewModelScope.launch {
-            listSKU.value?.let {
-                saveAllSKUs(it).also {
-                    Log.d("data saved","")
+            if (listSku.isNotEmpty()) {
+                saveAllSKUs(listSku).also {
+                    loadCatalogState.value = LoadCatalogState.Success
                 }
             }
         }
     }
-
 }

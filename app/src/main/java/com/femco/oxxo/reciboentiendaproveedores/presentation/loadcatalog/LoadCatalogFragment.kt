@@ -17,14 +17,14 @@ class LoadCatalogFragment : Fragment() {
 
     private var _binding: FragmentLoadCatalogBinding? = null
 
+    private val binding get() = _binding!!
+
     private val viewModel by viewModels<LoadCatalogViewModel>()
 
     private val getContent =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            uri?.let { viewModel.readFile(it) }
+            uri?.let { viewModel.getNameFileAndUri(it) }
         }
-
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,11 +41,11 @@ class LoadCatalogFragment : Fragment() {
     }
 
     private fun setObservers() {
-        viewModel.listSKU.observe(requireActivity()) {
-            Log.d("Observer:", " ${it[0].description}")
-        }
-        viewModel.namePath.observe(requireActivity()) {
-            setField(it)
+        viewModel.loadCatalogState.observe(requireActivity()) {
+            when(it){
+                is LoadCatalogState.NameFile -> setField(it.nameFile)
+                LoadCatalogState.Success -> Log.d("Observer:", "Show Dialog")
+            }
         }
     }
 
