@@ -8,4 +8,8 @@
     <string name="load_catalog_fragment_button">Subir Catálogo</string>
     <string name="load_catalog_fragment_title">Agregar / Actualizar Catálogo de Artículos</string>
     <string name="load_catalog_fragment_subtitle">Seleccione Archivo CSV</string>
+
+    <string name="name_icon_menu_back">Back</string>
+    <string name="name_icon_menu_home">Home</string>
+    <string name="name_icon_menu_logout">Logout</string>
 </resources>
