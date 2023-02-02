@@ -30,4 +30,8 @@
 
     <dimen name="height_image">32dp</dimen>
     <dimen name="width_image">32dp</dimen>
+
+    <dimen name="width_buttons">300dp</dimen>
+
+    <dimen name="width_fields">300dp</dimen>
 </resources>

@@ -2,7 +2,13 @@
     <string name="app_name">ReciboEnTiendaProveedores</string>
     <string name="action_settings">Settings</string>
     <!-- Style Order Screen-->
-    <string name="order_fragment_button">actualizar catálogo</string>
+    <string name="order_fragment_button_load_catalog">actualizar catálogo</string>
+    <string name="order_fragment_radio_button_one">Generar Pedido / Preinventarista</string>
+    <string name="order_fragment_radio_button_two">Generar Pedido y Entrega</string>
+    <string name="order_fragment_text_supply_title">Fuente de Abasto:</string>
+    <string name="order_fragment_text_barcode_title">Codigo de barras:</string>
+    <string name="order_fragment_text_total_title">Gran total:</string>
+    <string name="order_fragment_button_continue">Continuar</string>
 
     <!--Style LoadCatalog Screen-->
     <string name="load_catalog_fragment_button">Subir Catálogo</string>

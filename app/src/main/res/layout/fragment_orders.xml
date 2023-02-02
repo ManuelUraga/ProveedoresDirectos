@@ -9,8 +9,8 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loadCatalogButton"
-        android:text="@string/order_fragment_button"
-        android:layout_width="wrap_content"
+        android:text="@string/order_fragment_button_load_catalog"
+        android:layout_width="@dimen/width_buttons"
         android:layout_height="wrap_content"
         android:background="@drawable/yellow_rounded_button"
         android:padding="@dimen/grid_1"
@@ -20,5 +20,102 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/orderTypeRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/grid_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loadCatalogButton">
+
+        <RadioButton
+            android:id="@+id/preinventaristaRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/rounded_square_radio_button"
+            android:text="@string/order_fragment_radio_button_one"
+            android:buttonTint="@color/yellow_sunshine"/>
+
+        <RadioButton
+            android:id="@+id/entregaRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/rounded_square_radio_button"
+            android:text="@string/order_fragment_radio_button_two"
+            android:buttonTint="@color/yellow_sunshine"/>
+    </RadioGroup>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/supplySourceTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/order_fragment_text_supply_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orderTypeRadioGroup" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/supplySourceField"
+        android:layout_width="@dimen/width_fields"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/supplySourceTitleText" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/barcodeTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/order_fragment_text_barcode_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/supplySourceField" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/barcodeField"
+        android:layout_width="@dimen/width_fields"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barcodeTitleText" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/productListRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barcodeField" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/grandTotalTitleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/order_fragment_text_total_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/productListRecycler" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/grandTotalField"
+        android:layout_width="@dimen/width_fields"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/grandTotalTitleText" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/continueButton"
+        android:layout_width="@dimen/width_buttons"
+        android:layout_height="wrap_content"
+        android:background="@drawable/yellow_rounded_button"
+        android:padding="@dimen/grid_1"
+        android:text="@string/order_fragment_button_continue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/grandTotalField" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
