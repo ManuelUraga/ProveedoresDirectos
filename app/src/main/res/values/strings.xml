@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ReciboEnTiendaProveedores</string>
+    <string name="app_name">Proveedores Directos</string>
     <string name="action_settings">Settings</string>
     <!-- Style Order Screen-->
     <string name="order_fragment_button_load_catalog">actualizar catálogo</string>

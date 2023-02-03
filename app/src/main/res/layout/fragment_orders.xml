@@ -70,6 +70,7 @@
         android:layout_marginStart="@dimen/grid_4"
         android:layout_marginEnd="@dimen/grid_4"
         android:labelFor="@id/supplySourceTitleText"
+        android:background="@drawable/rounded_corner_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/supplySourceTitleText" />
@@ -94,6 +95,7 @@
         android:layout_marginEnd="@dimen/grid_2"
         android:labelFor="@id/barcodeTitleText"
         android:hint="@string/order_fragment_text_hint"
+        android:background="@drawable/rounded_corner_edit_text"
         app:layout_constraintEnd_toStartOf="@+id/barcodeImageButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barcodeTitleText" />
@@ -119,6 +121,8 @@
         android:layout_marginTop="@dimen/grid_1"
         android:layout_marginStart="@dimen/grid_4"
         android:layout_marginEnd="@dimen/grid_4"
+        tools:listitem="@layout/sku_products_items"
+        tools:itemCount="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barcodeField" />
@@ -142,6 +146,7 @@
         android:layout_marginStart="@dimen/grid_4"
         android:layout_marginEnd="@dimen/grid_4"
         android:hint="@string/order_fragment_text_hint"
+        android:background="@drawable/rounded_corner_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/grandTotalTitleText" />

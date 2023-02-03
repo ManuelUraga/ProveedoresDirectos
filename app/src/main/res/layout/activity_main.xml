@@ -16,43 +16,11 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/red_scale"
+            app:title="@string/app_name"
             app:popupTheme="@style/Theme.ReciboEnTiendaProveedoresDirectos.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_main" />
-
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize">
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/backImage"
-                android:layout_width="@dimen/width_image"
-                android:layout_height="@dimen/height_image"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:elevation="@dimen/elevation_5"
-                android:layout_marginStart="@dimen/grid_2"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_arrow_circle_left" />
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/logoutImage"
-                android:layout_width="@dimen/width_image"
-                android:layout_height="@dimen/height_image"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:elevation="@dimen/elevation_5"
-                android:background="@android:color/transparent"
-                android:layout_marginEnd="@dimen/grid_2"
-                android:src="@drawable/ic_logout" />
-
-        </RelativeLayout>
-    </com.google.android.material.navigation.NavigationView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
