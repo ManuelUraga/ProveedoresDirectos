@@ -1,21 +1,28 @@
 package com.femco.oxxo.reciboentiendaproveedores.presentation.order
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.camera.core.ExperimentalGetImage
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.femco.oxxo.reciboentiendaproveedores.R
 import com.femco.oxxo.reciboentiendaproveedores.databinding.FragmentOrdersBinding
+import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.ScannerActivity
+import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.constants.SCAN_REQUEST_CODE
+import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.constants.SCAN_RESULT
 import dagger.hilt.android.AndroidEntryPoint
 
+@ExperimentalGetImage
 @AndroidEntryPoint
 class OrdersFragment : Fragment() {
 
-    private var navController : NavController? = null
+    private var navController: NavController? = null
 
     private var _binding: FragmentOrdersBinding? = null
 
@@ -42,9 +49,10 @@ class OrdersFragment : Fragment() {
         setObserver()
     }
 
+
     private fun setObserver() {
         viewModel.uiState.observe(requireActivity()) {
-            when(it){
+            when (it) {
                 is OrdersState.ValidateData -> enabledButtonCatalog(it.enabled)
             }
         }
@@ -58,7 +66,20 @@ class OrdersFragment : Fragment() {
         binding.loadCatalogButton.setOnClickListener {
             navController?.navigate(R.id.global_action_LoadCatalogFragment)
         }
+        binding.barcodeImageButton.setOnClickListener {
+            launcher.launch(Intent(requireContext(), ScannerActivity::class.java))
+        }
     }
+
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == SCAN_REQUEST_CODE) {
+                val intent = it.data
+                if (intent != null) {
+                    binding.barcodeField.setText(intent.getStringExtra(SCAN_RESULT))
+                }
+            }
+        }
 
     override fun onDestroyView() {
         super.onDestroyView()
