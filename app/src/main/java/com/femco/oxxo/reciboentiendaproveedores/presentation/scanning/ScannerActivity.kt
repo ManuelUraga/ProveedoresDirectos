@@ -5,16 +5,11 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Size
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.ExperimentalGetImage
-import androidx.camera.core.Preview
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageCapture
+import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.femco.oxxo.reciboentiendaproveedores.R
+import com.femco.oxxo.reciboentiendaproveedores.databinding.ActivityScannerBinding
 import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.constants.SCAN_REQUEST_CODE
 import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.constants.SCAN_RESULT
 import com.google.common.util.concurrent.ListenableFuture
@@ -28,21 +23,26 @@ class ScannerActivity : AppCompatActivity(), MyImageAnalyser.OnListenScan {
     private lateinit var cameraProviderFuture: ListenableFuture<ProcessCameraProvider>
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var analyzer: MyImageAnalyser
-    private var previewView: PreviewView? = null
 
+    private lateinit var _binding: ActivityScannerBinding
+    private val binding get() = _binding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_scanner)
-
-        previewView = findViewById(R.id.previewView)
+        _binding = ActivityScannerBinding.inflate(layoutInflater)
+        setContentView(_binding.root)
         window.setFlags(1024, 1024)
+        initCamera()
+        setListeners()
+    }
 
+    private fun initCamera() {
         cameraExecutor = Executors.newSingleThreadExecutor()
         cameraProviderFuture = ProcessCameraProvider.getInstance(this)
-
         analyzer = MyImageAnalyser()
-        analyzer.setListenScan(this)
+    }
 
+    private fun setListeners() {
+        analyzer.setListenScan(this)
         cameraProviderFuture.let {
             it.addListener({
                 try {
@@ -68,7 +68,6 @@ class ScannerActivity : AppCompatActivity(), MyImageAnalyser.OnListenScan {
                 }
             }, ContextCompat.getMainExecutor(this))
         }
-
     }
 
     override fun onRequestPermissionsResult(
@@ -87,10 +86,10 @@ class ScannerActivity : AppCompatActivity(), MyImageAnalyser.OnListenScan {
         val preview = Preview.Builder().build()
         val cameraSelector =
             CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build()
-        preview.setSurfaceProvider(previewView?.surfaceProvider)
+        preview.setSurfaceProvider(binding.previewView.surfaceProvider)
         val imageCapture = ImageCapture.Builder().build()
         val imageAnalyser = ImageAnalysis.Builder()
-            .setTargetResolution(Size(1280,720))
+            .setTargetResolution(Size(1280, 720))
             .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
             .build()
         imageAnalyser.setAnalyzer(cameraExecutor, analyzer)
