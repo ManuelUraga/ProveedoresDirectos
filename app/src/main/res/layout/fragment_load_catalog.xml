@@ -7,22 +7,14 @@
     tools:context=".presentation.loadcatalog.LoadCatalogFragment">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/loadCatalogTitleText"
+        android:id="@+id/loadCatalogSubtitleText"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/load_catalog_fragment_title"
+        android:layout_height="@dimen/button_height"
+        android:text="@string/load_catalog_fragment_subtitle"
+        android:textAppearance="@style/TextAppearance.Body1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/loadCatalogSubtitleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/load_catalog_fragment_subtitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loadCatalogTitleText" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/loadCatalogPathCard"
@@ -52,11 +44,13 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/uploadCatalogButton"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:background="@drawable/yellow_rounded_button"
         android:padding="@dimen/grid_1"
         android:text="@string/load_catalog_fragment_button"
+        android:textAppearance="@style/TextAppearance.Button"
+        android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loadCatalogPathCard" />

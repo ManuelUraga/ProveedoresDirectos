@@ -16,7 +16,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/red_scale"
-            app:title="@string/app_name"
             app:popupTheme="@style/Theme.ReciboEnTiendaProveedoresDirectos.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>

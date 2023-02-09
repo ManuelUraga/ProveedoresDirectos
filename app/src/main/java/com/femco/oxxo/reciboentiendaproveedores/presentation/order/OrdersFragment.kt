@@ -11,8 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.femco.oxxo.reciboentiendaproveedores.R
 import com.femco.oxxo.reciboentiendaproveedores.databinding.FragmentOrdersBinding
+import com.femco.oxxo.reciboentiendaproveedores.presentation.order.adapter.ProductsAdapter
 import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.ScannerActivity
 import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.constants.SCAN_REQUEST_CODE
 import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.constants.SCAN_RESULT
@@ -30,6 +32,8 @@ class OrdersFragment : Fragment() {
 
     private val viewModel by viewModels<OrdersViewModel>()
 
+    private lateinit var productsAdapter: ProductsAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,7 +44,7 @@ class OrdersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        activity?.title = getString(R.string.app_name)
         val navHostFragment = requireActivity().supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
@@ -54,6 +58,7 @@ class OrdersFragment : Fragment() {
         viewModel.uiState.observe(requireActivity()) {
             when (it) {
                 is OrdersState.ValidateData -> enabledButtonCatalog(it.enabled)
+                is OrdersState.SKUListState -> productsAdapter.fetchData(it.skus)
             }
         }
     }
@@ -69,6 +74,17 @@ class OrdersFragment : Fragment() {
         binding.barcodeImageButton.setOnClickListener {
             launcher.launch(Intent(requireContext(), ScannerActivity::class.java))
         }
+        productsAdapter = ProductsAdapter(listOf(), {
+            viewModel.removeProduct(it)
+        }, {
+            viewModel.plusProduct(it)
+        }, {
+            viewModel.minusProduct(it)
+        })
+        binding.productListRecycler.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = productsAdapter
+        }
     }
 
     private val launcher =
@@ -76,7 +92,8 @@ class OrdersFragment : Fragment() {
             if (it.resultCode == SCAN_REQUEST_CODE) {
                 val intent = it.data
                 if (intent != null) {
-                    binding.barcodeField.setText(intent.getStringExtra(SCAN_RESULT))
+                    val skuScan = intent.getStringExtra(SCAN_RESULT)
+                    skuScan?.let { skuScanned -> viewModel.insertSKUIntoList(skuScanned) }
                 }
             }
         }

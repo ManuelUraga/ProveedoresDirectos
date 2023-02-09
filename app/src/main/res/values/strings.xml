@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Proveedores Directos</string>
     <string name="action_settings">Settings</string>
     <!-- Style Order Screen-->
@@ -7,7 +7,7 @@
     <string name="order_fragment_radio_button_two">Generar Pedido y Entrega</string>
     <string name="order_fragment_text_supply_title">Fuente de Abasto:</string>
     <string name="order_fragment_text_barcode_title">Codigo de barras:</string>
-    <string name="order_fragment_text_hint"></string>
+    <string name="order_fragment_text_hint"> </string>
     <string name="order_fragment_text_total_title">Gran total:</string>
     <string name="order_fragment_button_continue">Continuar</string>
 
@@ -15,8 +15,8 @@
     <string name="load_catalog_fragment_button">Subir Catálogo</string>
     <string name="load_catalog_fragment_title">Agregar / Actualizar Catálogo de Artículos</string>
     <string name="load_catalog_fragment_subtitle">Seleccione Archivo CSV</string>
+    <string name="load_catalog_dialog_message">El Cátalogo se ha actualizado con éxito</string>
+    <string name="load_catalog_dialog_confirm">Confirmar</string>
+    <string name="load_catalog_dialog_cancel">Cancelar</string>
 
-    <string name="name_icon_menu_back">Back</string>
-    <string name="name_icon_menu_home">Home</string>
-    <string name="name_icon_menu_logout">Logout</string>
 </resources>

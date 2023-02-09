@@ -32,9 +32,8 @@
     <dimen name="height_image">32dp</dimen>
     <dimen name="width_image">32dp</dimen>
     <!--Buttons-->
-    <dimen name="width_buttons">300dp</dimen>
-    <dimen name="button_height">58dp</dimen>
+    <dimen name="button_height">53dp</dimen>
     <!--ImageButton-->
-    <dimen name="width_image_button">70dp</dimen>
-    <dimen name="height_image_button">77dp</dimen>
+    <dimen name="width_image_button">54dp</dimen>
+    <dimen name="height_image_button">54dp</dimen>
 </resources>

@@ -16,5 +16,9 @@
     <color name="dust">#FFFCFFFE</color>
     <color name="silver">#FFC7D0D4</color>
     <color name="cultured">#FFF5F7F8</color>
-    <color name="navyBlack">#14498B</color>
+    <color name="navyBlack">#333399</color>
+    <color name="park">#00C853</color>
+    <color name="steel">#C5C9C9</color>
+    <color name="steel_caption">#666666</color>
+    <color name="background">#F6F6F6</color>
 </resources>

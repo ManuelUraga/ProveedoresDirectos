@@ -10,14 +10,15 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loadCatalogButton"
         android:text="@string/order_fragment_button_load_catalog"
-        android:layout_width="@dimen/width_buttons"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@drawable/yellow_rounded_button"
         android:padding="@dimen/grid_1"
-        android:layout_marginTop="@dimen/grid_2"
-        android:layout_marginLeft="@dimen/grid_2"
-        android:layout_marginRight="@dimen/grid_2"
-        android:textColor="@android:color/white"
+        android:layout_marginTop="@dimen/grid_4"
+        android:layout_marginLeft="@dimen/grid_4"
+        android:layout_marginRight="@dimen/grid_4"
+        android:textAppearance="@style/TextAppearance.Button"
+        android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +28,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/grid_1"
+        android:layout_marginTop="@dimen/grid_4"
         android:layout_marginStart="@dimen/grid_4"
         android:layout_marginEnd="@dimen/grid_4"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,16 +40,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/rounded_square_radio_button"
-            android:text="@string/order_fragment_radio_button_one"
-            android:buttonTint="@color/yellow_sunshine"/>
+            android:text="@string/order_fragment_radio_button_one" />
 
         <RadioButton
             android:id="@+id/entregaRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:button="@drawable/rounded_square_radio_button"
-            android:text="@string/order_fragment_radio_button_two"
-            android:buttonTint="@color/yellow_sunshine"/>
+            android:text="@string/order_fragment_radio_button_two" />
     </RadioGroup>
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -58,7 +57,7 @@
         android:text="@string/order_fragment_text_supply_title"
         android:layout_marginStart="@dimen/grid_4"
         android:layout_marginEnd="@dimen/grid_4"
-        android:layout_marginTop="@dimen/grid_1"
+        android:layout_marginTop="@dimen/grid_2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/orderTypeRadioGroup" />
@@ -67,6 +66,7 @@
         android:id="@+id/supplySourceField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_1"
         android:layout_marginStart="@dimen/grid_4"
         android:layout_marginEnd="@dimen/grid_4"
         android:labelFor="@id/supplySourceTitleText"
@@ -75,30 +75,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/supplySourceTitleText" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/barcodeTitleText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/order_fragment_text_barcode_title"
-        android:layout_marginStart="@dimen/grid_4"
-        android:layout_marginEnd="@dimen/grid_2"
-        android:layout_marginTop="@dimen/grid_1"
-        app:layout_constraintEnd_toStartOf="@+id/barcodeImageButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/supplySourceField" />
-
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/barcodeField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/grid_2"
         android:layout_marginStart="@dimen/grid_4"
         android:layout_marginEnd="@dimen/grid_2"
-        android:labelFor="@id/barcodeTitleText"
-        android:hint="@string/order_fragment_text_hint"
+        android:hint="@string/order_fragment_text_barcode_title"
         android:background="@drawable/rounded_corner_edit_text"
         app:layout_constraintEnd_toStartOf="@+id/barcodeImageButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barcodeTitleText" />
+        app:layout_constraintTop_toBottomOf="@+id/supplySourceField" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/barcodeImageButton"
@@ -112,17 +100,17 @@
         android:padding="@dimen/grid_1_5"
         app:layout_constraintBottom_toBottomOf="@+id/barcodeField"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/barcodeTitleText" />
+        app:layout_constraintTop_toTopOf="@+id/barcodeField" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productListRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_1"
+        android:layout_marginTop="@dimen/grid_2"
         android:layout_marginStart="@dimen/grid_4"
         android:layout_marginEnd="@dimen/grid_4"
         tools:listitem="@layout/sku_products_items"
-        tools:itemCount="5"
+        tools:itemCount="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/barcodeField" />
@@ -132,7 +120,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/order_fragment_text_total_title"
-        android:layout_marginTop="@dimen/grid_1"
+        android:layout_marginTop="@dimen/grid_2"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/grid_4"
         android:layout_marginEnd="@dimen/grid_4"
@@ -153,12 +141,16 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/continueButton"
-        android:layout_width="@dimen/width_buttons"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/button_height"
         android:background="@drawable/yellow_rounded_button"
         android:padding="@dimen/grid_1"
         android:text="@string/order_fragment_button_continue"
-        android:textColor="@android:color/white"
+        android:textAppearance="@style/TextAppearance.Button"
+        android:textAllCaps="true"
+        android:layout_marginTop="@dimen/grid_4"
+        android:layout_marginLeft="@dimen/grid_4"
+        android:layout_marginRight="@dimen/grid_4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/grandTotalField" />
