@@ -6,7 +6,7 @@
     <string name="order_fragment_radio_button_one">Generar Pedido / Preinventarista</string>
     <string name="order_fragment_radio_button_two">Generar Pedido y Entrega</string>
     <string name="order_fragment_text_supply_title">Fuente de Abasto:</string>
-    <string name="order_fragment_text_barcode_title">Codigo de barras:</string>
+    <string name="order_fragment_text_barcode_title">Código de barras:</string>
     <string name="order_fragment_text_hint"> </string>
     <string name="order_fragment_text_total_title">Gran total:</string>
     <string name="order_fragment_button_continue">Continuar</string>
@@ -18,5 +18,8 @@
     <string name="load_catalog_dialog_message">El Cátalogo se ha actualizado con éxito</string>
     <string name="load_catalog_dialog_confirm">Confirmar</string>
     <string name="load_catalog_dialog_cancel">Cancelar</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 
 </resources>

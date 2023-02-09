@@ -22,8 +22,8 @@
     <dimen name="elevation_15">15dp</dimen>
 
     <!--Edit text-->
-    <dimen name="edit_text_height">35</dimen>
-    <dimen name="edit_text_width">300</dimen>
+    <dimen name="edit_text_height">64dp</dimen>
+    <dimen name="edit_text_height_item">47dp</dimen>
     <!--Radius-->
     <dimen name="radius_small">4dp</dimen>
     <dimen name="radius_medium">8dp</dimen>
@@ -32,8 +32,11 @@
     <dimen name="height_image">32dp</dimen>
     <dimen name="width_image">32dp</dimen>
     <!--Buttons-->
-    <dimen name="button_height">53dp</dimen>
+    <dimen name="button_height">57dp</dimen>
     <!--ImageButton-->
-    <dimen name="width_image_button">54dp</dimen>
-    <dimen name="height_image_button">54dp</dimen>
+    <dimen name="width_image_button">64dp</dimen>
+    <dimen name="height_image_button">64dp</dimen>
+    <!--Icon Item-->
+    <dimen name="width_image_button_item">47dp</dimen>
+    <dimen name="height_image_button_item">47dp</dimen>
 </resources>

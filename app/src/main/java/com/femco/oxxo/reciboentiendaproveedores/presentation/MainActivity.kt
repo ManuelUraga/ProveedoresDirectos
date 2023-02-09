@@ -1,4 +1,4 @@
-package com.femco.oxxo.reciboentiendaproveedores
+package com.femco.oxxo.reciboentiendaproveedores.presentation
 
 import android.os.Bundle
 import android.view.Menu
@@ -9,6 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.femco.oxxo.reciboentiendaproveedores.R
 import com.femco.oxxo.reciboentiendaproveedores.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -11,87 +11,77 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/grid_1">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/skuNumberCard"
+        <EditText
+            android:id="@+id/skuNumberField"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:elevation="@dimen/elevation_15"
-            android:layout_margin="@dimen/grid_1"
+            android:layout_height="47dp"
+            android:background="@drawable/rounded_corner_edit_text"
+            android:layout_marginEnd="@dimen/grid_1"
+            android:text="@{product.skuScanned}"
+            android:textAlignment="center"
+            android:inputType="number"
+            android:autofillHints="postalCode"
+            android:hint="@null"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/removeProductButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/skuNumberText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/grid_1"
-                android:textAlignment="center"
-                android:text="@{product.skuScanned}"
-                tool:text="7051" />
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toTopOf="parent"
+            tool:text="7051" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/removeProductButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/width_image_button_item"
+            android:layout_height="@dimen/height_image_button_item"
             android:background="@drawable/rounded_image_button"
-            android:padding="@dimen/grid_1"
+            android:padding="@dimen/grid_1_5"
             android:scaleType="centerInside"
             android:src="@drawable/trash_can_solid"
+            android:layout_marginEnd="@dimen/grid_1"
             android:tint="@color/white"
-            android:layout_margin="@dimen/grid_1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/minusProductButton"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/minusProductButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/width_image_button_item"
+            android:layout_height="@dimen/height_image_button_item"
             android:background="@drawable/rounded_image_button"
-            android:padding="@dimen/grid_1"
             android:scaleType="centerInside"
             android:src="@drawable/ic_remove"
             android:tint="@color/white"
-            android:layout_margin="@dimen/grid_1"
+            android:layout_marginEnd="@dimen/grid_1"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/numberProductsCard"
+            app:layout_constraintEnd_toStartOf="@+id/numberProductsField"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/numberProductsCard"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:elevation="@dimen/elevation_15"
-            android:layout_margin="@dimen/grid_1"
+        <EditText
+            android:id="@+id/numberProductsField"
+            android:layout_width="@dimen/edit_text_height_item"
+            android:layout_height="@dimen/edit_text_height_item"
+            android:background="@drawable/rounded_corner_edit_text"
+            android:layout_marginEnd="@dimen/grid_1"
+            android:text="@{Integer.toString(product.amount)}"
+            android:textAlignment="center"
+            android:inputType="number"
+            android:autofillHints="postalCode"
+            android:hint="@null"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/addProductButton"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/amountText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/grid_1"
-                android:textAlignment="center"
-                android:text="@{Integer.toString(product.amount)}"
-                tool:text="4" />
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toTopOf="parent"
+            tool:text="1" />
 
         <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/addProductButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="@dimen/width_image_button_item"
+            android:layout_height="@dimen/height_image_button_item"
             android:background="@drawable/rounded_image_button"
-            android:padding="@dimen/grid_1"
             android:scaleType="centerInside"
             android:src="@drawable/ic_add"
             android:tint="@color/white"
-            android:layout_margin="@dimen/grid_1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -8,7 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="red_scale">#FFDF0024</color>
+    <color name="red_scale">#FFFF0811</color>
     <color name="onyx">#FF31383B</color>
     <color name="slate">#FF7B8C9F</color>
     <color name="platinum">#FFE4EAEC</color>
@@ -20,5 +20,10 @@
     <color name="park">#00C853</color>
     <color name="steel">#C5C9C9</color>
     <color name="steel_caption">#666666</color>
-    <color name="background">#F6F6F6</color>
+    <color name="background">#FFF6F6F6</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="light_blue_900">#FF01579B</color>
+    <color name="light_blue_A200">#FF40C4FF</color>
+    <color name="light_blue_A400">#FF00B0FF</color>
+    <color name="black_overlay">#66000000</color>
 </resources>

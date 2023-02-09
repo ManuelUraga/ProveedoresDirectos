@@ -11,10 +11,10 @@
         android:id="@+id/loadCatalogButton"
         android:text="@string/order_fragment_button_load_catalog"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/button_height"
         android:background="@drawable/yellow_rounded_button"
         android:padding="@dimen/grid_1"
-        android:layout_marginTop="@dimen/grid_4"
+        android:layout_marginTop="@dimen/grid_5"
         android:layout_marginLeft="@dimen/grid_4"
         android:layout_marginRight="@dimen/grid_4"
         android:textAppearance="@style/TextAppearance.Button"
@@ -39,13 +39,19 @@
             android:id="@+id/preinventaristaRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="@dimen/grid_1"
+            android:textColor="@color/steel_caption"
             android:button="@drawable/rounded_square_radio_button"
+            android:textAppearance="@style/TextAppearance.Body1"
             android:text="@string/order_fragment_radio_button_one" />
 
         <RadioButton
             android:id="@+id/entregaRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingStart="@dimen/grid_1"
+            android:textAppearance="@style/TextAppearance.Body1"
+            android:textColor="@color/steel_caption"
             android:button="@drawable/rounded_square_radio_button"
             android:text="@string/order_fragment_radio_button_two" />
     </RadioGroup>
@@ -57,7 +63,8 @@
         android:text="@string/order_fragment_text_supply_title"
         android:layout_marginStart="@dimen/grid_4"
         android:layout_marginEnd="@dimen/grid_4"
-        android:layout_marginTop="@dimen/grid_2"
+        android:layout_marginTop="@dimen/grid_4"
+        android:textAppearance="@style/TextAppearance.Body1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/orderTypeRadioGroup" />
@@ -65,12 +72,13 @@
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/supplySourceField"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_1"
+        android:layout_height="@dimen/edit_text_height"
+        android:layout_marginTop="@dimen/grid_2_5"
         android:layout_marginStart="@dimen/grid_4"
         android:layout_marginEnd="@dimen/grid_4"
         android:labelFor="@id/supplySourceTitleText"
         android:background="@drawable/rounded_corner_edit_text"
+        android:hint="@string/order_fragment_text_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/supplySourceTitleText" />
@@ -78,8 +86,8 @@
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/barcodeField"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/grid_2"
+        android:layout_height="@dimen/edit_text_height"
+        android:layout_marginTop="@dimen/grid_5"
         android:layout_marginStart="@dimen/grid_4"
         android:layout_marginEnd="@dimen/grid_2"
         android:hint="@string/order_fragment_text_barcode_title"
@@ -121,16 +129,18 @@
         android:layout_height="wrap_content"
         android:text="@string/order_fragment_text_total_title"
         android:layout_marginTop="@dimen/grid_2"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="@dimen/grid_4"
         android:layout_marginEnd="@dimen/grid_4"
+        android:textAppearance="@style/TextAppearance.Body1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/productListRecycler" />
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/grandTotalField"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/edit_text_height"
+        android:layout_marginTop="@dimen/grid_2_5"
         android:layout_marginStart="@dimen/grid_4"
         android:layout_marginEnd="@dimen/grid_4"
         android:hint="@string/order_fragment_text_hint"
@@ -148,9 +158,11 @@
         android:text="@string/order_fragment_button_continue"
         android:textAppearance="@style/TextAppearance.Button"
         android:textAllCaps="true"
-        android:layout_marginTop="@dimen/grid_4"
+        android:layout_marginTop="@dimen/grid_4_5"
         android:layout_marginLeft="@dimen/grid_4"
         android:layout_marginRight="@dimen/grid_4"
+        android:layout_marginBottom="@dimen/grid_4"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/grandTotalField" />

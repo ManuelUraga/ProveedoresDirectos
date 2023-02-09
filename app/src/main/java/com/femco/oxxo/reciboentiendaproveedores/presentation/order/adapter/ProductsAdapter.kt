@@ -1,5 +1,6 @@
 package com.femco.oxxo.reciboentiendaproveedores.presentation.order.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +27,7 @@ class ProductsAdapter(
         holder.setData(listSKUProviders[position])
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun fetchData(skus: List<ProductScanned>) {
         listSKUProviders = skus
         notifyDataSetChanged()
