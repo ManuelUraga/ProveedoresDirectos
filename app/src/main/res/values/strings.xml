@@ -15,7 +15,9 @@
     <string name="load_catalog_fragment_button">Subir Catálogo</string>
     <string name="load_catalog_fragment_title">Agregar / Actualizar Catálogo de Artículos</string>
     <string name="load_catalog_fragment_subtitle">Seleccione Archivo CSV</string>
-    <string name="load_catalog_dialog_message">El Cátalogo se ha actualizado con éxito</string>
+    <string name="load_catalog_dialog_message">Carga de Información Completada</string>
+    <string name="load_catalog_diloag_error_message_invalid">Revise la extensión del archivo, debe ser .CSV</string>
+    <string name="load_catalog_diloag_error_message_format">Favor de validar el contenido del archivo, sólo debe contener la columna de artículos</string>
     <string name="load_catalog_dialog_confirm">Confirmar</string>
     <string name="load_catalog_dialog_cancel">Cancelar</string>
     <string name="title_activity_splash">SplashActivity</string>

@@ -2,6 +2,7 @@ package com.femco.oxxo.reciboentiendaproveedores.presentation.order.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.femco.oxxo.reciboentiendaproveedores.databinding.SkuProductsItemsBinding
@@ -37,11 +38,13 @@ class ProductsAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun setData(product: ProductScanned) {
             with(binding) {
-                this.product = product
                 removeProductButton.setOnClickListener { clickRemove(adapterPosition) }
                 addProductButton.setOnClickListener { clickPlus(adapterPosition) }//plus(product.skuScanned) }
                 minusProductButton.setOnClickListener { clickMinus(adapterPosition) }
-                executePendingBindings()
+                minusProductButton.visibility = if (product.amount > 1) View.VISIBLE else View.GONE
+                skuNumberField.setText(product.skuScanned)
+                numberProductsField.setText("${product.amount}")
+
             }
         }
     }

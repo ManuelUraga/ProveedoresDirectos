@@ -2,7 +2,7 @@
 <resources>
     <style name="TextAppearance.Body1" parent="">
         <item name="android:fontFamily">@font/roboto_regular</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:letterSpacing">0.021</item>
         <item name="android:textColor">@color/steel_caption</item>
     </style>
@@ -10,6 +10,12 @@
         <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="android:textSize">20sp</item>
         <item name="android:letterSpacing">0.019</item>
+        <item name="android:textColor">@color/steel_caption</item>
+    </style>
+    <style name="TextAppearance.Display2" parent="">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:letterSpacing">0.021</item>
         <item name="android:textColor">@color/steel_caption</item>
     </style>
     <style name="TextAppearance.Caption" parent="">
@@ -20,7 +26,7 @@
 
     <style name="TextAppearance.Button" parent="">
         <item name="android:fontFamily">@font/roboto_bold</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/white</item>
     </style>
 

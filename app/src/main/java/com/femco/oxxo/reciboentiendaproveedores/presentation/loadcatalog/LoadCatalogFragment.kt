@@ -1,10 +1,8 @@
 package com.femco.oxxo.reciboentiendaproveedores.presentation.loadcatalog
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,19 +46,18 @@ class LoadCatalogFragment : Fragment() {
         viewModel.loadCatalogState.observe(requireActivity()) {
             when (it) {
                 is LoadCatalogState.NameFile -> setField(it.nameFile)
-                LoadCatalogState.Success -> showAlertDialog()
+                LoadCatalogState.Success -> showAlertDialog(R.string.load_catalog_dialog_message,true)
+                is LoadCatalogState.ShowErrorMessage -> showAlertDialog(it.message, false)
             }
         }
     }
 
-    private fun showAlertDialog() {
+    private fun showAlertDialog(message: Int, navigateBack: Boolean){
         AlertDialog.Builder(context)
-            .setMessage(R.string.load_catalog_dialog_message)
+            .setMessage(message)
             .setPositiveButton(R.string.load_catalog_dialog_confirm) { dialogInterface, i ->
                 dialogInterface.dismiss()
-            }
-            .setNegativeButton(R.string.load_catalog_dialog_cancel) { dialogInterface, i ->
-                dialogInterface.dismiss()
+                if (navigateBack) requireActivity().supportFragmentManager.popBackStack()
             }
             .setCancelable(false)
             .create().show()

@@ -67,6 +67,12 @@ class MyImageAnalyser : ImageAnalysis.Analyzer {
                     }
                     Log.d("Barcode", "${barcode.rawValue}")
                 }
+                Barcode.TYPE_PRODUCT -> {
+                    barcode.rawValue?.let {
+                        onListenScan?.textScan(it)
+                    }
+                    Log.d("Barcode", "${barcode.rawValue}")
+                }
             }
         }
     }

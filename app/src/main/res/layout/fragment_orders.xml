@@ -40,9 +40,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/grid_1"
+            android:textAppearance="@style/TextAppearance.Display2"
             android:textColor="@color/steel_caption"
             android:button="@drawable/rounded_square_radio_button"
-            android:textAppearance="@style/TextAppearance.Body1"
             android:text="@string/order_fragment_radio_button_one" />
 
         <RadioButton
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/grid_1"
-            android:textAppearance="@style/TextAppearance.Body1"
+            android:textAppearance="@style/TextAppearance.Display2"
             android:textColor="@color/steel_caption"
             android:button="@drawable/rounded_square_radio_button"
             android:text="@string/order_fragment_radio_button_two" />

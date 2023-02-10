@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.DrawableRes
 import androidx.camera.core.ExperimentalGetImage
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -65,6 +66,7 @@ class OrdersFragment : Fragment() {
 
     private fun enabledButtonCatalog(enabled: Boolean) {
         binding.loadCatalogButton.isEnabled = !enabled
+        binding.loadCatalogButton.setBackgroundResource(R.drawable.disabled_rounded_button)
     }
 
     private fun initView() {

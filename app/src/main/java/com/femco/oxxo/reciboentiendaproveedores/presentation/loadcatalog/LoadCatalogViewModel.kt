@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.femco.oxxo.reciboentiendaproveedores.R
 import com.femco.oxxo.reciboentiendaproveedores.domain.model.SKUProviders
 import com.femco.oxxo.reciboentiendaproveedores.domain.usecases.SaveAllSKUsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +20,7 @@ import javax.inject.Inject
 class LoadCatalogViewModel @Inject constructor(
     private val application: Application,
     private val saveAllSKUs: SaveAllSKUsUseCase
-): ViewModel() {
+) : ViewModel() {
 
     fun setUp(arguments: Bundle?) {}
 
@@ -28,28 +29,50 @@ class LoadCatalogViewModel @Inject constructor(
     var listSku: MutableList<SKUProviders> = mutableListOf()
 
     fun getNameFileAndUri(uri: Uri) {
-        val csvFile = uri.let { application.contentResolver.openInputStream(it) }
-        val isr = InputStreamReader(csvFile)
-        mappingIntoObject(BufferedReader(isr).readLines())
         uri.path?.let {
-            loadCatalogState.value = LoadCatalogState.NameFile(File(it).name)
+            val name = File(it).name
+            val extension = name.substring(name.lastIndexOf("."))
+            if (!extension.contains("csv")) {
+                loadCatalogState.value =
+                    LoadCatalogState.ShowErrorMessage(
+                        R.string.load_catalog_diloag_error_message_invalid
+                    )
+            } else {
+                val csvFile = uri.let { uriPath ->
+                    application.contentResolver.openInputStream(uriPath)
+                }
+                val isr = InputStreamReader(csvFile)
+                mappingIntoObject(BufferedReader(isr).readLines(), {
+                    loadCatalogState.value =
+                        LoadCatalogState.ShowErrorMessage(
+                            R.string.load_catalog_diloag_error_message_format
+                        )
+                }, {
+                    loadCatalogState.value = LoadCatalogState.NameFile(name)
+                })
+            }
         }
     }
 
-    private fun mappingIntoObject(readLines: List<String>) {
+    private fun mappingIntoObject(readLines: List<String>, error: () -> Unit, success: () -> Unit) {
         val firstElement = readLines[0]
         for (line in readLines) {
             if (!line.contentEquals(firstElement)) {
-                val item = line.split(",")
+                val items = line.split(",")
+                if (items.size < 4) {
+                    error()
+                    return
+                }
                 val skuProviders = SKUProviders(
-                    id = item[0].toInt(),
-                    sku = item[1],
-                    description = item[2],
-                    supplySource = item[3]
+                    id = items[0].toInt(),
+                    sku = items[1],
+                    description = items[2],
+                    supplySource = items[3]
                 )
                 listSku.add(skuProviders)
             }
         }
+        success()
     }
 
     fun saveSKUDataInDB() {

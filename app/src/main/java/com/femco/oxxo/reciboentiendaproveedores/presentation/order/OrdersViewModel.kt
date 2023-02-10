@@ -14,9 +14,14 @@ import javax.inject.Inject
 class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCase) : ViewModel() {
 
     val uiState = MutableLiveData<OrdersState>()
-    val skuListScanned: MutableList<ProductScanned> = mutableListOf()
+    private val skuListScanned: MutableList<ProductScanned> = mutableListOf()
     private var timestamp: Long = 0L
 
+    init {
+        skuListScanned.add(ProductScanned("12",1))
+        skuListScanned.add(ProductScanned("123",1))
+        uiState.value = OrdersState.SKUListState(skuListScanned)
+    }
     fun validateIfSKUExisting() {
         viewModelScope.launch {
             getSKUUseCase().also { listProviders ->

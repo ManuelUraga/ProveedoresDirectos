@@ -16,13 +16,22 @@
     <dimen name="grid_6">48dp</dimen>
     <dimen name="grid_6_5">56dp</dimen>
     <dimen name="grid_7">60dp</dimen>
+    <dimen name="grid_7_5">64dp</dimen>
+    <dimen name="grid_8">68dp</dimen>
+    <dimen name="grid_8_5">72dp</dimen>
+    <dimen name="grid_9">76dp</dimen>
+    <dimen name="grid_9_5">80dp</dimen>
+    <dimen name="grid_10">84dp</dimen>
+    <dimen name="grid_10_5">88dp</dimen>
+    <dimen name="grid_11">92dp</dimen>
+    <dimen name="grid_11_5">96dp</dimen>
     <!--Elevations-->
     <dimen name="elevation_5">5dp</dimen>
     <dimen name="elevation_10">10dp</dimen>
     <dimen name="elevation_15">15dp</dimen>
 
     <!--Edit text-->
-    <dimen name="edit_text_height">64dp</dimen>
+    <dimen name="edit_text_height">58dp</dimen>
     <dimen name="edit_text_height_item">47dp</dimen>
     <!--Radius-->
     <dimen name="radius_small">4dp</dimen>
@@ -32,10 +41,10 @@
     <dimen name="height_image">32dp</dimen>
     <dimen name="width_image">32dp</dimen>
     <!--Buttons-->
-    <dimen name="button_height">57dp</dimen>
+    <dimen name="button_height">50dp</dimen>
     <!--ImageButton-->
-    <dimen name="width_image_button">64dp</dimen>
-    <dimen name="height_image_button">64dp</dimen>
+    <dimen name="width_image_button">58dp</dimen>
+    <dimen name="height_image_button">58dp</dimen>
     <!--Icon Item-->
     <dimen name="width_image_button_item">47dp</dimen>
     <dimen name="height_image_button_item">47dp</dimen>
