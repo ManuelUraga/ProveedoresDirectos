@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.femco.oxxo.reciboentiendaproveedores.R
 import com.femco.oxxo.reciboentiendaproveedores.databinding.FragmentLoadCatalogBinding
+import com.femco.oxxo.reciboentiendaproveedores.utils.MyAlertDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,21 +47,19 @@ class LoadCatalogFragment : Fragment() {
         viewModel.loadCatalogState.observe(requireActivity()) {
             when (it) {
                 is LoadCatalogState.NameFile -> setField(it.nameFile)
-                LoadCatalogState.Success -> showAlertDialog(R.string.load_catalog_dialog_message,true)
+                LoadCatalogState.Success -> showAlertDialog(
+                    R.string.load_catalog_dialog_message,
+                    true
+                )
                 is LoadCatalogState.ShowErrorMessage -> showAlertDialog(it.message, false)
             }
         }
     }
 
-    private fun showAlertDialog(message: Int, navigateBack: Boolean){
-        AlertDialog.Builder(context)
-            .setMessage(message)
-            .setPositiveButton(R.string.load_catalog_dialog_confirm) { dialogInterface, i ->
-                dialogInterface.dismiss()
-                if (navigateBack) requireActivity().supportFragmentManager.popBackStack()
-            }
-            .setCancelable(false)
-            .create().show()
+    private fun showAlertDialog(message: Int, navigateBack: Boolean) {
+        MyAlertDialog(requireContext(), message) {
+            if (navigateBack) requireActivity().supportFragmentManager.popBackStack()
+        }.show()
     }
 
     private fun setField(it: String) {

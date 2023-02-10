@@ -3,6 +3,7 @@ package com.femco.oxxo.reciboentiendaproveedores.presentation.order
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.femco.oxxo.reciboentiendaproveedores.R
 import com.femco.oxxo.reciboentiendaproveedores.domain.model.ProductScanned
 import com.femco.oxxo.reciboentiendaproveedores.domain.usecases.GetSKUUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,18 +18,13 @@ class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCa
     private val skuListScanned: MutableList<ProductScanned> = mutableListOf()
     private var timestamp: Long = 0L
 
-    init {
-        skuListScanned.add(ProductScanned("12",1))
-        skuListScanned.add(ProductScanned("123",1))
-        uiState.value = OrdersState.SKUListState(skuListScanned)
-    }
     fun validateIfSKUExisting() {
         viewModelScope.launch {
             getSKUUseCase().also { listProviders ->
                 if (listProviders.first().isNotEmpty()) {
-                    uiState.value = OrdersState.ValidateData(true)
+                    uiState.value = OrdersState.ValidateData(true, R.drawable.disabled_rounded_button)
                 } else {
-                    uiState.value = OrdersState.ValidateData(false)
+                    uiState.value = OrdersState.ValidateData(false, R.drawable.yellow_rounded_button)
                 }
             }
         }

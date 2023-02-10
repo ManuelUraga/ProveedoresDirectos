@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.DrawableRes
 import androidx.camera.core.ExperimentalGetImage
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -58,15 +57,15 @@ class OrdersFragment : Fragment() {
     private fun setObserver() {
         viewModel.uiState.observe(requireActivity()) {
             when (it) {
-                is OrdersState.ValidateData -> enabledButtonCatalog(it.enabled)
+                is OrdersState.ValidateData -> enabledButtonCatalog(it.enabled, it.drawableRes)
                 is OrdersState.SKUListState -> productsAdapter.fetchData(it.skus)
             }
         }
     }
 
-    private fun enabledButtonCatalog(enabled: Boolean) {
+    private fun enabledButtonCatalog(enabled: Boolean, drawableRes: Int) {
         binding.loadCatalogButton.isEnabled = !enabled
-        binding.loadCatalogButton.setBackgroundResource(R.drawable.disabled_rounded_button)
+        binding.loadCatalogButton.setBackgroundResource(drawableRes)
     }
 
     private fun initView() {

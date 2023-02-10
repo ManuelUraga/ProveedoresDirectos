@@ -21,6 +21,7 @@
     <color name="steel">#C5C9C9</color>
     <color name="steel_caption">#666666</color>
     <color name="background">#FFF6F6F6</color>
+    <color name="disabled">#FFA0A6AB</color>
     <color name="light_blue_600">#FF039BE5</color>
     <color name="light_blue_900">#FF01579B</color>
     <color name="light_blue_A200">#FF40C4FF</color>
