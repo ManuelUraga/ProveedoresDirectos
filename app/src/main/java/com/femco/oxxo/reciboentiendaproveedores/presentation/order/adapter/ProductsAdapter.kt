@@ -12,7 +12,8 @@ class ProductsAdapter(
     private var listSKUProviders: List<ProductScanned>,
     val clickRemove: (Int) -> Unit,
     val clickPlus: (Int) -> Unit,
-    val clickMinus: (Int) -> Unit
+    val clickMinus: (Int) -> Unit,
+    val clickInsert:(Int) -> Unit
 ) :
     RecyclerView.Adapter<ProductsAdapter.ViewHolder>() {
 
@@ -39,11 +40,12 @@ class ProductsAdapter(
         fun setData(product: ProductScanned) {
             with(binding) {
                 removeProductButton.setOnClickListener { clickRemove(adapterPosition) }
-                addProductButton.setOnClickListener { clickPlus(adapterPosition) }//plus(product.skuScanned) }
+                addProductButton.setOnClickListener { clickPlus(adapterPosition) }
                 minusProductButton.setOnClickListener { clickMinus(adapterPosition) }
                 minusProductButton.visibility = if (product.amount > 1) View.VISIBLE else View.GONE
                 skuNumberField.setText(product.skuScanned)
-                numberProductsField.setText("${product.amount}")
+                numberProductText.text = "${product.amount}"
+                numberProductsCard.setOnClickListener { clickInsert(adapterPosition) }
 
             }
         }

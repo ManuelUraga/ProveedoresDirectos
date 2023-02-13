@@ -81,6 +81,7 @@
         android:textColor="@color/steel_caption"
         android:background="@drawable/rounded_corner_edit_text"
         android:hint="@string/order_fragment_text_hint"
+        android:inputType="number"
         tools:text="Fuente de abasto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,9 +95,9 @@
         android:layout_marginStart="@dimen/grid_4"
         android:layout_marginEnd="@dimen/grid_2"
         android:hint="@string/order_fragment_text_barcode_title"
+        android:background="@drawable/bottom_corner_edit_text"
         android:textAppearance="@style/TextAppearance.Display2"
         android:textColor="@color/steel_caption"
-        android:background="@drawable/rounded_corner_edit_text"
         app:layout_constraintEnd_toStartOf="@+id/barcodeImageButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/supplySourceField" />

@@ -9,7 +9,7 @@
     <EditText
         android:id="@+id/skuNumberField"
         android:layout_width="0dp"
-        android:layout_height="47dp"
+        android:layout_height="@dimen/edit_text_height_item"
         android:layout_marginEnd="@dimen/grid_1"
         android:autofillHints="postalCode"
         android:background="@drawable/rounded_corner_edit_text"
@@ -17,6 +17,7 @@
         android:hint="@null"
         android:inputType="number"
         android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.Display1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/removeProductButton"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,24 +48,26 @@
         android:src="@drawable/ic_remove"
         android:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/numberProductsField"
+        app:layout_constraintEnd_toStartOf="@+id/numberProductsCard"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/numberProductsField"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/numberProductsCard"
         android:layout_width="@dimen/edit_text_height_item"
         android:layout_height="@dimen/edit_text_height_item"
         android:layout_marginEnd="@dimen/grid_1"
-        android:autofillHints="postalCode"
         android:background="@drawable/rounded_corner_edit_text"
-        android:enabled="false"
-        android:hint="@null"
-        android:inputType="number"
-        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/addProductButton"
-        app:layout_constraintTop_toTopOf="parent"
-        tool:text="1" />
+        app:layout_constraintTop_toTopOf="parent">
+        <TextView
+            android:id="@+id/numberProductText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Display1"
+            android:layout_gravity="center"
+            tool:text="1" />
+    </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/addProductButton"

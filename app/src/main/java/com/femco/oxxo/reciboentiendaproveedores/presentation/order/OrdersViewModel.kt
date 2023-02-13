@@ -30,6 +30,12 @@ class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCa
         }
     }
 
+    init {
+        skuListScanned.add(ProductScanned("123",1))
+        skuListScanned.add(ProductScanned("1234",1))
+        uiState.value = OrdersState.SKUListState(skuListScanned)
+    }
+
     fun insertSKUIntoList(skuScan: String) {
         skuListScanned.add(ProductScanned(skuScanned = skuScan))
         if (skuListScanned.size == 1) {
@@ -55,6 +61,13 @@ class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCa
 
     fun removeProduct(position: Int) {
         skuListScanned.removeAt(position)
+        uiState.value = OrdersState.SKUListState(skuListScanned)
+    }
+
+    fun changeValueManual(value: Int, position: Int) {
+        skuListScanned[position].apply {
+            this.amount = value
+        }
         uiState.value = OrdersState.SKUListState(skuListScanned)
     }
 

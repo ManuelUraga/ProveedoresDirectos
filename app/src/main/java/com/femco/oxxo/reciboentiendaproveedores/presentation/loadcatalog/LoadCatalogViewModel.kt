@@ -69,7 +69,7 @@ class LoadCatalogViewModel @Inject constructor(
 
     private fun getFileName(uri: Uri): String {
         var result: String? = null
-        if (uri.scheme == "content") {
+        if (uri.scheme == ContentResolver.SCHEME_CONTENT) {
             val cursor: Cursor? = application.contentResolver.query(uri, null, null, null, null)
             cursor.use { c ->
                 if (c != null && c.moveToFirst()) {

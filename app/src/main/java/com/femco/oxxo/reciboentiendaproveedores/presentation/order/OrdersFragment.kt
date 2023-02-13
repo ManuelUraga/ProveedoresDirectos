@@ -18,6 +18,7 @@ import com.femco.oxxo.reciboentiendaproveedores.presentation.order.adapter.Produ
 import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.ScannerActivity
 import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.constants.SCAN_REQUEST_CODE
 import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.constants.SCAN_RESULT
+import com.femco.oxxo.reciboentiendaproveedores.utils.AlertDialogWithEditText
 import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalGetImage
@@ -82,7 +83,13 @@ class OrdersFragment : Fragment() {
             viewModel.plusProduct(it)
         }, {
             viewModel.minusProduct(it)
-        })
+        }){  position ->
+            AlertDialogWithEditText(requireContext(),
+                R.string.dialog_title_confirm
+            ) {
+                viewModel.changeValueManual(it, position)
+            }.alertDialog()
+        }
         binding.productListRecycler.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = productsAdapter
