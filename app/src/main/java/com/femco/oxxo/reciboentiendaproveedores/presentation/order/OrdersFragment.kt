@@ -66,6 +66,7 @@ class OrdersFragment : Fragment() {
     private fun enabledButtonCatalog(enabled: Boolean, drawableRes: Int) {
         binding.loadCatalogButton.isEnabled = !enabled
         binding.loadCatalogButton.setBackgroundResource(drawableRes)
+        binding.continueButton.isEnabled = enabled
     }
 
     private fun initView() {

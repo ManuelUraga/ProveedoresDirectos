@@ -1,6 +1,5 @@
 package com.femco.oxxo.reciboentiendaproveedores.presentation.loadcatalog
 
-import android.app.AlertDialog
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,7 +24,9 @@ class LoadCatalogFragment : Fragment() {
 
     private val getContent =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-            uri?.let { viewModel.getNameFileAndUri(it) }
+            uri?.let {
+                viewModel.getNameFileAndUri(it)
+            }
         }
 
     override fun onCreateView(

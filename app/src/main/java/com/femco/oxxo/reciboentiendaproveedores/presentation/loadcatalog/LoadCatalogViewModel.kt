@@ -1,8 +1,12 @@
 package com.femco.oxxo.reciboentiendaproveedores.presentation.loadcatalog
 
 import android.app.Application
+import android.content.ContentResolver
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
+import android.provider.OpenableColumns
+import android.webkit.MimeTypeMap
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -30,9 +34,8 @@ class LoadCatalogViewModel @Inject constructor(
 
     fun getNameFileAndUri(uri: Uri) {
         uri.path?.let {
-            val name = File(it).name
-            val extension = name.substring(name.lastIndexOf("."))
-            if (!extension.contains("csv")) {
+            val mimeType = getFileExtension(uri)
+            if (!mimeType.equals("csv")) {
                 loadCatalogState.value =
                     LoadCatalogState.ShowErrorMessage(
                         R.string.load_catalog_diloag_error_message_invalid
@@ -48,10 +51,40 @@ class LoadCatalogViewModel @Inject constructor(
                             R.string.load_catalog_diloag_error_message_format
                         )
                 }, {
-                    loadCatalogState.value = LoadCatalogState.NameFile(name)
+                    loadCatalogState.value = LoadCatalogState.NameFile(getFileName(uri))
                 })
             }
         }
+    }
+
+    private fun getFileExtension(uri: Uri): String? =
+        if (uri.scheme == ContentResolver.SCHEME_CONTENT)
+            MimeTypeMap.getSingleton()
+                .getExtensionFromMimeType(application.contentResolver.getType(uri))
+        else uri.path?.let {
+            MimeTypeMap.getFileExtensionFromUrl(
+                Uri.fromFile(File(it)).toString()
+            )
+        }
+
+    private fun getFileName(uri: Uri): String {
+        var result: String? = null
+        if (uri.scheme == "content") {
+            val cursor: Cursor? = application.contentResolver.query(uri, null, null, null, null)
+            cursor.use { c ->
+                if (c != null && c.moveToFirst()) {
+                    result = c.getColumnIndex(OpenableColumns.DISPLAY_NAME).toString()
+                }
+            }
+        }
+        if (result == null) {
+            result = uri.path
+            val cut = result!!.lastIndexOf('/')
+            if (cut != -1) {
+                result = result!!.substring(cut + 1)
+            }
+        }
+        return result as String
     }
 
     private fun mappingIntoObject(readLines: List<String>, error: () -> Unit, success: () -> Unit) {
