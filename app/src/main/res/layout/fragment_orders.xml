@@ -39,7 +39,7 @@
             android:id="@+id/preinventaristaRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/grid_1"
+            android:paddingRight="@dimen/grid_1"
             android:textAppearance="@style/TextAppearance.Display2"
             android:textColor="@color/steel_caption"
             android:button="@drawable/rounded_square_radio_button"
@@ -49,7 +49,7 @@
             android:id="@+id/entregaRadioButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="@dimen/grid_1"
+            android:paddingLeft="@dimen/grid_1"
             android:textAppearance="@style/TextAppearance.Display2"
             android:textColor="@color/steel_caption"
             android:button="@drawable/rounded_square_radio_button"
@@ -69,26 +69,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/orderTypeRadioGroup" />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/supplySourceField"
+
+    <AutoCompleteTextView
+        android:id="@+id/supplySourceAutoComplete"
         android:layout_width="0dp"
         android:layout_height="@dimen/edit_text_height"
         android:layout_marginTop="@dimen/grid_2_5"
         android:layout_marginStart="@dimen/grid_4"
         android:layout_marginEnd="@dimen/grid_4"
-        android:labelFor="@id/supplySourceTitleText"
         android:textAppearance="@style/TextAppearance.Display2"
-        android:textColor="@color/steel_caption"
         android:background="@drawable/rounded_corner_edit_text"
-        android:hint="@string/order_fragment_text_hint"
         android:inputType="number"
-        tools:text="Fuente de abasto"
+        android:textColor="@color/steel_caption"
+        android:labelFor="@id/supplySourceTitleText"
+        android:hint="@string/order_fragment_text_hint"
+        android:completionThreshold="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/supplySourceTitleText" />
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/barcodeField"
+    <AutoCompleteTextView
+        android:id="@+id/barcodeAutoComplete"
         android:layout_width="0dp"
         android:layout_height="@dimen/edit_text_height"
         android:layout_marginTop="@dimen/grid_5"
@@ -100,21 +101,35 @@
         android:textColor="@color/steel_caption"
         app:layout_constraintEnd_toStartOf="@+id/barcodeImageButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/supplySourceField" />
+        app:layout_constraintTop_toBottomOf="@+id/supplySourceAutoComplete" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/barcodeImageButton"
         android:layout_width="@dimen/width_image_button"
         android:layout_height="@dimen/height_image_button"
-        android:layout_marginEnd="@dimen/grid_4"
         android:background="@drawable/rounded_image_button"
         android:src="@drawable/barcode_solid"
         android:tint="@color/white"
         android:scaleType="fitCenter"
         android:padding="@dimen/grid_1_5"
-        app:layout_constraintBottom_toBottomOf="@+id/barcodeField"
+        android:layout_marginEnd="@dimen/grid_4"
+        app:layout_constraintBottom_toBottomOf="@+id/barcodeAutoComplete"
+        app:layout_constraintEnd_toStartOf="@id/barcodeInputImageButton"
+        app:layout_constraintTop_toTopOf="@+id/barcodeAutoComplete" />
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/barcodeInputImageButton"
+        android:layout_width="@dimen/width_image_button"
+        android:layout_height="@dimen/height_image_button"
+        android:layout_marginEnd="@dimen/grid_4"
+        android:visibility="gone"
+        android:background="@drawable/rounded_image_button"
+        android:src="@drawable/ic_done_outline"
+        android:tint="@color/white"
+        tools:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/barcodeField" />
+        app:layout_constraintBottom_toBottomOf="@+id/barcodeAutoComplete"
+        app:layout_constraintTop_toTopOf="@+id/barcodeAutoComplete"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productListRecycler"
@@ -127,7 +142,7 @@
         tools:itemCount="2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barcodeField" />
+        app:layout_constraintTop_toBottomOf="@+id/barcodeAutoComplete" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/grandTotalTitleText"

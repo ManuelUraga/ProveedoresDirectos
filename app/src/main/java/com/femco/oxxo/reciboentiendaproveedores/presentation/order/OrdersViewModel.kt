@@ -1,10 +1,12 @@
 package com.femco.oxxo.reciboentiendaproveedores.presentation.order
 
+import android.text.Editable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.femco.oxxo.reciboentiendaproveedores.R
 import com.femco.oxxo.reciboentiendaproveedores.domain.model.ProductScanned
+import com.femco.oxxo.reciboentiendaproveedores.domain.model.SKUProviders
 import com.femco.oxxo.reciboentiendaproveedores.domain.usecases.GetSKUUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.first
@@ -22,27 +24,37 @@ class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCa
         viewModelScope.launch {
             getSKUUseCase().also { listProviders ->
                 if (listProviders.first().isNotEmpty()) {
-                    uiState.value = OrdersState.ValidateData(true, R.drawable.disabled_rounded_button)
+                    uiState.value =
+                        OrdersState.ValidateData(true, R.drawable.disabled_rounded_button)
+                    setDataInformation(listProviders.first())
                 } else {
-                    uiState.value = OrdersState.ValidateData(false, R.drawable.yellow_rounded_button)
+                    uiState.value =
+                        OrdersState.ValidateData(false, R.drawable.yellow_rounded_button)
                 }
             }
         }
     }
 
-    init {
-        skuListScanned.add(ProductScanned("123",1))
-        skuListScanned.add(ProductScanned("1234",1))
-        uiState.value = OrdersState.SKUListState(skuListScanned)
+    private fun setDataInformation(listProviders: List<SKUProviders>) {
+        val listSupply =
+            listProviders.distinctBy { it.supplySource }.map { it.supplySource }.toList()
+        val listSkU = listProviders.map { it.sku }.toList()
+        uiState.value = OrdersState.SetLists(listSupply, listSkU)
     }
 
     fun insertSKUIntoList(skuScan: String) {
-        skuListScanned.add(ProductScanned(skuScanned = skuScan))
-        if (skuListScanned.size == 1) {
-            timestamp = System.currentTimeMillis()
+        val indexSKUExisting = skuListScanned.indexOfFirst { it.skuScanned == skuScan }
+        if (indexSKUExisting != -1) {
+            plusProduct(indexSKUExisting)
+        } else {
+            skuListScanned.add(ProductScanned(skuScanned = skuScan))
+            if (skuListScanned.size == 1) {
+                timestamp = System.currentTimeMillis()
+            }
+            uiState.value = OrdersState.SKUListState(skuListScanned)
         }
-        uiState.value = OrdersState.SKUListState(skuListScanned)
     }
+
     fun plusProduct(position: Int) {
         skuListScanned[position].apply {
             this.amount = skuListScanned[position].amount.plus(1)
@@ -69,6 +81,12 @@ class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCa
             this.amount = value
         }
         uiState.value = OrdersState.SKUListState(skuListScanned)
+    }
+
+    fun validateAutoComplete(it: Editable?) {
+        if (it?.isBlank() == true) uiState.value =
+            OrdersState.setButtonsScanOrAdd(showScan = true, showAdd = false)
+        else uiState.value = OrdersState.setButtonsScanOrAdd(showScan = false, showAdd = true)
     }
 
 }
