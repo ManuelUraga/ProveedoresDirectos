@@ -48,9 +48,7 @@ class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCa
             plusProduct(indexSKUExisting)
         } else {
             skuListScanned.add(ProductScanned(skuScanned = skuScan))
-            if (skuListScanned.size == 1) {
-                timestamp = System.currentTimeMillis()
-            }
+            if (skuListScanned.size == 1) timestamp = System.currentTimeMillis()
             uiState.value = OrdersState.SKUListState(skuListScanned)
         }
     }
@@ -85,8 +83,15 @@ class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCa
 
     fun validateAutoComplete(it: Editable?) {
         if (it?.isBlank() == true) uiState.value =
-            OrdersState.setButtonsScanOrAdd(showScan = true, showAdd = false)
-        else uiState.value = OrdersState.setButtonsScanOrAdd(showScan = false, showAdd = true)
+            OrdersState.SetButtonsScanOrAdd(showScan = true, showAdd = false)
+        else uiState.value = OrdersState.SetButtonsScanOrAdd(showScan = false, showAdd = true)
     }
 
+    fun reloadTotal(skus: MutableList<ProductScanned>) {
+        var grandAmount = 0
+        skus.forEach {
+            grandAmount += it.amount
+        }
+        uiState.value = OrdersState.ReloadGrandTotal(grandAmount)
+    }
 }

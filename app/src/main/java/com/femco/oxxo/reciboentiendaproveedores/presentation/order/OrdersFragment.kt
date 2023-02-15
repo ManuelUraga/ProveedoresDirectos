@@ -87,11 +87,19 @@ class OrdersFragment : Fragment() {
         viewModel.uiState.observe(requireActivity()) {
             when (it) {
                 is OrdersState.ValidateData -> enabledButtonCatalog(it.enabled, it.drawableRes)
-                is OrdersState.SKUListState -> productsAdapter.fetchData(it.skus)
+                is OrdersState.SKUListState -> {
+                    productsAdapter.fetchData(it.skus)
+                    viewModel.reloadTotal(it.skus)
+                }
                 is OrdersState.SetLists -> setDataIntoAutoComplete(it.listSupply, it.listSkU)
-                is OrdersState.setButtonsScanOrAdd -> setVisibilityButtons(it.showScan, it.showAdd)
+                is OrdersState.SetButtonsScanOrAdd -> setVisibilityButtons(it.showScan, it.showAdd)
+                is OrdersState.ReloadGrandTotal -> setGrandTotal(it.total)
             }
         }
+    }
+
+    private fun setGrandTotal(total: Int) {
+        binding.grandTotalField.setText("$total")
     }
 
     private fun setVisibilityButtons(showScan: Boolean, showAdd: Boolean) {
