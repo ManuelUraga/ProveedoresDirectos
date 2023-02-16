@@ -34,8 +34,9 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
         if (PreferencesManager.instance?.firstTime == false) {
+            PreferencesManager.instance?.firstTime = true
             navController.navigate(R.id.action_load_catalog_fragment)
-        } else PreferencesManager.instance?.firstTime = true
+        }
 
     }
 

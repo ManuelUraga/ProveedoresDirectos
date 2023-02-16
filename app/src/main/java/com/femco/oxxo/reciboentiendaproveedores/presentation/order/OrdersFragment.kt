@@ -109,10 +109,10 @@ class OrdersFragment : Fragment() {
 
     private fun setDataIntoAutoComplete(listSupply: List<String>, listSkU: List<String>) {
         arrayAdapterSupply =
-            ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, listSupply)
+            ArrayAdapter(requireContext(), R.layout.spinner_item_simple, listSupply)
         binding.supplySourceAutoComplete.setAdapter(arrayAdapterSupply)
         arrayAdapterSKUs =
-            ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, listSkU)
+            ArrayAdapter(requireContext(), R.layout.spinner_item_simple, listSkU)
         binding.barcodeAutoComplete.setAdapter(arrayAdapterSKUs)
     }
 
