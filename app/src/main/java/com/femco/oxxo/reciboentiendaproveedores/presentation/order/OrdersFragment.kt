@@ -31,9 +31,7 @@ class OrdersFragment : Fragment() {
 
     private var navController: NavController? = null
 
-    private var _binding: FragmentOrdersBinding? = null
-
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentOrdersBinding
 
     private val viewModel by viewModels<OrdersViewModel>()
 
@@ -45,7 +43,7 @@ class OrdersFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentOrdersBinding.inflate(inflater, container, false)
+        binding = FragmentOrdersBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -127,7 +125,7 @@ class OrdersFragment : Fragment() {
     private fun initListeners() {
         with(binding) {
             loadCatalogButton.setOnClickListener {
-                navController?.navigate(R.id.global_action_LoadCatalogFragment)
+                navController?.navigate(R.id.action_load_catalog_fragment)
             }
             barcodeImageButton.setOnClickListener {
                 launcher.launch(Intent(requireContext(), ScannerActivity::class.java))
@@ -168,10 +166,4 @@ class OrdersFragment : Fragment() {
                 }
             }
         }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
 }

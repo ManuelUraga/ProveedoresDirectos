@@ -8,6 +8,7 @@ import com.femco.oxxo.reciboentiendaproveedores.R
 import com.femco.oxxo.reciboentiendaproveedores.domain.model.ProductScanned
 import com.femco.oxxo.reciboentiendaproveedores.domain.model.SKUProviders
 import com.femco.oxxo.reciboentiendaproveedores.domain.usecases.GetSKUUseCase
+import com.femco.oxxo.reciboentiendaproveedores.utils.PreferencesManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -28,8 +29,7 @@ class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCa
                         OrdersState.ValidateData(true, R.drawable.disabled_rounded_button)
                     setDataInformation(listProviders.first())
                 } else {
-                    uiState.value =
-                        OrdersState.ValidateData(false, R.drawable.yellow_rounded_button)
+                    uiState.value = OrdersState.ValidateData(false, R.drawable.yellow_rounded_button)
                 }
             }
         }

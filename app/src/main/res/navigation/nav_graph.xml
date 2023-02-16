@@ -9,15 +9,15 @@
         android:name="com.femco.oxxo.reciboentiendaproveedores.presentation.order.OrdersFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_orders">
-
+        <action
+            android:id="@+id/action_load_catalog_fragment"
+            app:destination="@id/LoadCatalogFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/LoadCatalogFragment"
         android:name="com.femco.oxxo.reciboentiendaproveedores.presentation.loadcatalog.LoadCatalogFragment"
         android:label="@string/load_catalog_fragment_title"
-        tools:layout="@layout/fragment_load_catalog"/>
-    <action
-        android:id="@+id/global_action_LoadCatalogFragment"
-        app:destination="@id/LoadCatalogFragment" />
+        tools:layout="@layout/fragment_load_catalog" />
+
 </navigation>

@@ -73,4 +73,7 @@ dependencies {
     implementation "androidx.camera:camera-camera2:$camerax_version"
     implementation "androidx.camera:camera-video:$camerax_version"
 
+    //PreferenceManager
+    implementation 'androidx.preference:preference:1.2.0'
+
 }

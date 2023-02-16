@@ -16,9 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LoadCatalogFragment : Fragment() {
 
-    private var _binding: FragmentLoadCatalogBinding? = null
-
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentLoadCatalogBinding
 
     private val viewModel by viewModels<LoadCatalogViewModel>()
 
@@ -33,7 +31,7 @@ class LoadCatalogFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLoadCatalogBinding.inflate(inflater, container, false)
+        binding = FragmentLoadCatalogBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -53,6 +51,7 @@ class LoadCatalogFragment : Fragment() {
                     true
                 )
                 is LoadCatalogState.ShowErrorMessage -> showAlertDialog(it.message, false)
+                else -> {}
             }
         }
     }
