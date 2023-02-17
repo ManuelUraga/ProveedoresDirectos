@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.ExperimentalGetImage
 import androidx.core.widget.addTextChangedListener
@@ -18,9 +19,12 @@ import com.femco.oxxo.reciboentiendaproveedores.R
 import com.femco.oxxo.reciboentiendaproveedores.databinding.FragmentOrdersBinding
 import com.femco.oxxo.reciboentiendaproveedores.presentation.order.adapter.ProductsAdapter
 import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.ScannerActivity
+import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.constants.ORDER_TYPE_PREINVENTARISTA
+import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.constants.ORDER_TYPE_REPARTIDOR
 import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.constants.SCAN_REQUEST_CODE
 import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.constants.SCAN_RESULT
 import com.femco.oxxo.reciboentiendaproveedores.utils.AlertDialogWithEditText
+import com.femco.oxxo.reciboentiendaproveedores.utils.MyAlertDialog
 import com.femco.oxxo.reciboentiendaproveedores.utils.closeKeyboard
 import com.femco.oxxo.reciboentiendaproveedores.utils.setVisibility
 import dagger.hilt.android.AndroidEntryPoint
@@ -75,9 +79,9 @@ class OrdersFragment : Fragment() {
             }.alertDialog()
         }
         arrayAdapterSupply =
-            ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, arrayOf())
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, arrayOf())
         arrayAdapterSKUs =
-            ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, arrayOf())
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, arrayOf())
     }
 
 
@@ -92,8 +96,17 @@ class OrdersFragment : Fragment() {
                 is OrdersState.SetLists -> setDataIntoAutoComplete(it.listSupply, it.listSkU)
                 is OrdersState.SetButtonsScanOrAdd -> setVisibilityButtons(it.showScan, it.showAdd)
                 is OrdersState.ReloadGrandTotal -> setGrandTotal(it.total)
+                OrdersState.ShowMessageError -> showErrorMessage()
+                OrdersState.ShowMessageSuccess -> Toast.makeText(context,"Show QR", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun showErrorMessage() {
+        MyAlertDialog(requireContext()).showAlert(
+            message = R.string.order_fragment_dialog_message_error,
+            positiveMessage = R.string.order_fragment_dialog_confirm,
+        ) {}
     }
 
     private fun setGrandTotal(total: Int) {
@@ -109,17 +122,16 @@ class OrdersFragment : Fragment() {
 
     private fun setDataIntoAutoComplete(listSupply: List<String>, listSkU: List<String>) {
         arrayAdapterSupply =
-            ArrayAdapter(requireContext(), R.layout.spinner_item_simple, listSupply)
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, listSupply)
         binding.supplySourceAutoComplete.setAdapter(arrayAdapterSupply)
         arrayAdapterSKUs =
-            ArrayAdapter(requireContext(), R.layout.spinner_item_simple, listSkU)
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, listSkU)
         binding.barcodeAutoComplete.setAdapter(arrayAdapterSKUs)
     }
 
     private fun enabledButtonCatalog(enabled: Boolean, drawableRes: Int) {
         binding.loadCatalogButton.isEnabled = !enabled
         binding.loadCatalogButton.setBackgroundResource(drawableRes)
-        binding.continueButton.isEnabled = enabled
     }
 
     private fun initListeners() {
@@ -133,6 +145,20 @@ class OrdersFragment : Fragment() {
             barcodeInputImageButton.setOnClickListener {
                 viewModel.insertSKUIntoList(barcodeAutoComplete.text.toString())
                 barcodeAutoComplete.text.clear()
+            }
+
+            orderTypeRadioGroup.setOnCheckedChangeListener { radioGroup, id ->
+                viewModel.setOrderType(onRadioButtonClicked(id))
+            }
+
+            continueButton.setOnClickListener {
+                MyAlertDialog(requireContext()).showAlert(
+                    message = R.string.order_fragment_dialog_message,
+                    positiveMessage = R.string.order_fragment_dialog_positive,
+                    negativeMessage = R.string.order_fragment_dialog_negative
+                ) {
+                    viewModel.validateForm(supplySourceAutoComplete)
+                }
             }
 
             productListRecycler.apply {
@@ -155,6 +181,9 @@ class OrdersFragment : Fragment() {
             }
         }
     }
+
+    private fun onRadioButtonClicked(radio: Int) =
+        if (radio == R.id.entregaRadioButton) ORDER_TYPE_REPARTIDOR else ORDER_TYPE_PREINVENTARISTA
 
     private val launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {

@@ -1,6 +1,7 @@
 package com.femco.oxxo.reciboentiendaproveedores.presentation.order
 
 import android.text.Editable
+import android.widget.AutoCompleteTextView
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,7 +9,6 @@ import com.femco.oxxo.reciboentiendaproveedores.R
 import com.femco.oxxo.reciboentiendaproveedores.domain.model.ProductScanned
 import com.femco.oxxo.reciboentiendaproveedores.domain.model.SKUProviders
 import com.femco.oxxo.reciboentiendaproveedores.domain.usecases.GetSKUUseCase
-import com.femco.oxxo.reciboentiendaproveedores.utils.PreferencesManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -20,6 +20,7 @@ class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCa
     val uiState = MutableLiveData<OrdersState>()
     private val skuListScanned: MutableList<ProductScanned> = mutableListOf()
     private var timestamp: Long = 0L
+    private var orderTYpe = 0
 
     fun validateIfSKUExisting() {
         viewModelScope.launch {
@@ -93,5 +94,19 @@ class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCa
             grandAmount += it.amount
         }
         uiState.value = OrdersState.ReloadGrandTotal(grandAmount)
+    }
+
+    fun validateForm(
+        supplySourceAutoComplete: AutoCompleteTextView
+    ) {
+        if (orderTYpe == 0 || supplySourceAutoComplete.text.isEmpty() || skuListScanned.isEmpty()){
+            uiState.value = OrdersState.ShowMessageError
+        } else {
+            uiState.value = OrdersState.ShowMessageSuccess
+        }
+    }
+
+    fun setOrderType(clicked: Int) {
+        orderTYpe = clicked
     }
 }

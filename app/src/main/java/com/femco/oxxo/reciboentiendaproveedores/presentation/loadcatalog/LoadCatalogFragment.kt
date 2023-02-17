@@ -51,15 +51,14 @@ class LoadCatalogFragment : Fragment() {
                     true
                 )
                 is LoadCatalogState.ShowErrorMessage -> showAlertDialog(it.message, false)
-                else -> {}
             }
         }
     }
 
     private fun showAlertDialog(message: Int, navigateBack: Boolean) {
-        MyAlertDialog(requireContext(), message) {
+        MyAlertDialog(requireContext()).showAlert(message, R.string.load_catalog_dialog_confirm) {
             if (navigateBack) requireActivity().supportFragmentManager.popBackStack()
-        }.show()
+        }
     }
 
     private fun setField(it: String) {

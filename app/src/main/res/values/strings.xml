@@ -10,6 +10,11 @@
     <string name="order_fragment_text_hint"> </string>
     <string name="order_fragment_text_total_title">Gran total:</string>
     <string name="order_fragment_button_continue">Continuar</string>
+    <string name="order_fragment_dialog_message">¿Está seguro que desea terminar el escaneo de productos?</string>
+    <string name="order_fragment_dialog_positive">Si</string>
+    <string name="order_fragment_dialog_negative">No</string>
+    <string name="order_fragment_dialog_message_error">Favor de ingresar los campos obligatorios</string>
+    <string name="order_fragment_dialog_confirm">Confirmar</string>
 
     <!--Style LoadCatalog Screen-->
     <string name="load_catalog_fragment_button">Subir Catálogo</string>
@@ -25,4 +30,9 @@
     <!--Dialog Text-->
     <string name="dialog_button_confirm">Confirmar</string>
     <string name="dialog_title_confirm">Ingresar una cantidad</string>
+
+    <!--Dialog Main exit-->
+    <string name="main_dialog_exit_message">¿Desea salir de la aplicación, esto elimnara los datos ya capturados?</string>
+    <string name="main_dialog_exit_positive">Si</string>
+    <string name="main_dialog_exit_negative">No</string>
 </resources>

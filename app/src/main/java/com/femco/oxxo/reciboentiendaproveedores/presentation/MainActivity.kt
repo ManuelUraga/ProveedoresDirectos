@@ -3,6 +3,7 @@ package com.femco.oxxo.reciboentiendaproveedores.presentation
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -11,6 +12,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.femco.oxxo.reciboentiendaproveedores.R
 import com.femco.oxxo.reciboentiendaproveedores.databinding.ActivityMainBinding
+import com.femco.oxxo.reciboentiendaproveedores.utils.MyAlertDialog
 import com.femco.oxxo.reciboentiendaproveedores.utils.PreferencesManager
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -38,6 +40,23 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.action_load_catalog_fragment)
         }
 
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                val manager = supportFragmentManager
+                if (manager.backStackEntryCount > 1) {
+                    manager.popBackStack()
+                } else {
+                    MyAlertDialog(this@MainActivity)
+                        .showAlert(
+                            message = R.string.main_dialog_exit_message,
+                            positiveMessage = R.string.main_dialog_exit_positive,
+                            negativeMessage = R.string.main_dialog_exit_negative
+                        ) {
+                            finishAffinity()
+                        }
+                }
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
