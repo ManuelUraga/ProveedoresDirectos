@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.ExperimentalGetImage
 import androidx.core.widget.addTextChangedListener
@@ -97,7 +96,7 @@ class OrdersFragment : Fragment() {
                 is OrdersState.SetButtonsScanOrAdd -> setVisibilityButtons(it.showScan, it.showAdd)
                 is OrdersState.ReloadGrandTotal -> setGrandTotal(it.total)
                 OrdersState.ShowMessageError -> showErrorMessage()
-                OrdersState.ShowMessageSuccess -> Toast.makeText(context,"Show QR", Toast.LENGTH_SHORT).show()
+                OrdersState.ShowMessageSuccess -> navController?.navigate(R.id.action_q_r_viewer_fragment)
             }
         }
     }

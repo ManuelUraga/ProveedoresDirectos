@@ -51,7 +51,11 @@ class LoadCatalogViewModel @Inject constructor(
                             R.string.load_catalog_diloag_error_message_format
                         )
                 }, {
-                    loadCatalogState.value = LoadCatalogState.NameFile(getFileName(uri))
+                    loadCatalogState.value = getFileName(uri)?.let { it1 ->
+                        LoadCatalogState.NameFile(
+                            it1
+                        )
+                    }
                 })
             }
         }
@@ -67,24 +71,26 @@ class LoadCatalogViewModel @Inject constructor(
             )
         }
 
-    private fun getFileName(uri: Uri): String {
+    private fun getFileName(uri: Uri): String? {
         var result: String? = null
         if (uri.scheme == ContentResolver.SCHEME_CONTENT) {
             val cursor: Cursor? = application.contentResolver.query(uri, null, null, null, null)
-            cursor.use { c ->
-                if (c != null && c.moveToFirst()) {
-                    result = c.getColumnIndex(OpenableColumns.DISPLAY_NAME).toString()
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
                 }
+            }finally {
+                cursor?.close()
             }
         }
         if (result == null) {
             result = uri.path
-            val cut = result!!.lastIndexOf('/')
+            val cut = result?.lastIndexOf('/')
             if (cut != -1) {
-                result = result!!.substring(cut + 1)
+                result = cut?.plus(1)?.let { result?.substring(it) }
             }
         }
-        return result as String
+        return result
     }
 
     private fun mappingIntoObject(readLines: List<String>, error: () -> Unit, success: () -> Unit) {

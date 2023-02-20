@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Proveedores Directos</string>
     <string name="action_settings">Settings</string>
-    <!-- Style Order Screen-->
+    <!-- Strings Order Screen-->
     <string name="order_fragment_button_load_catalog">actualizar catálogo</string>
     <string name="order_fragment_radio_button_one">Generar Pedido / Preinventarista</string>
     <string name="order_fragment_radio_button_two">Generar Pedido y Entrega</string>
@@ -16,7 +16,7 @@
     <string name="order_fragment_dialog_message_error">Favor de ingresar los campos obligatorios</string>
     <string name="order_fragment_dialog_confirm">Confirmar</string>
 
-    <!--Style LoadCatalog Screen-->
+    <!--Strings LoadCatalog Screen-->
     <string name="load_catalog_fragment_button">Subir Catálogo</string>
     <string name="load_catalog_fragment_title">Agregar / Actualizar Catálogo de Artículos</string>
     <string name="load_catalog_fragment_subtitle">Seleccione Archivo CSV</string>
@@ -35,4 +35,7 @@
     <string name="main_dialog_exit_message">¿Desea salir de la aplicación, esto elimnara los datos ya capturados?</string>
     <string name="main_dialog_exit_positive">Si</string>
     <string name="main_dialog_exit_negative">No</string>
+
+    <!--Strings qr viewer-->
+    <string name="hello_blank_fragment">El CÓDIGO QR ESTARÁ DISPONIBLE DURANTE %sd MINUTOS</string>
 </resources>

@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_load_catalog_fragment"
             app:destination="@id/LoadCatalogFragment" />
+        <action
+            android:id="@+id/action_q_r_viewer_fragment"
+            app:destination="@id/QRViewerFragment" />
     </fragment>
 
     <fragment
@@ -19,5 +22,11 @@
         android:name="com.femco.oxxo.reciboentiendaproveedores.presentation.loadcatalog.LoadCatalogFragment"
         android:label="@string/load_catalog_fragment_title"
         tools:layout="@layout/fragment_load_catalog" />
+
+    <fragment
+        android:id="@+id/QRViewerFragment"
+        android:name="com.femco.oxxo.reciboentiendaproveedores.presentation.qrviewer.QRViewerFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_q_r_viewer"/>
 
 </navigation>
