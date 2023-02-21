@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -40,24 +41,30 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(R.id.action_load_catalog_fragment)
         }
 
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+        onBackPressedDispatcher.addCallback(this, onBackPressed(navHostFragment, navController))
+    }
+
+    private fun onBackPressed(navHostFragment: NavHostFragment, navController: NavController) =
+        object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                val manager = supportFragmentManager
-                if (manager.backStackEntryCount > 1) {
-                    manager.popBackStack()
-                } else {
-                    MyAlertDialog(this@MainActivity)
-                        .showAlert(
-                            message = R.string.main_dialog_exit_message,
-                            positiveMessage = R.string.main_dialog_exit_positive,
-                            negativeMessage = R.string.main_dialog_exit_negative
-                        ) {
-                            finishAffinity()
-                        }
+                try {
+                    if (navHostFragment.childFragmentManager.backStackEntryCount == 0) {
+                        MyAlertDialog(this@MainActivity)
+                            .showAlert(
+                                message = R.string.main_dialog_exit_message,
+                                positiveMessage = R.string.main_dialog_exit_positive,
+                                negativeMessage = R.string.main_dialog_exit_negative
+                            ) {
+                                finishAffinity()
+                            }
+                    } else {
+                        navController.popBackStack()
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
             }
-        })
-    }
+        }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)

@@ -2,16 +2,22 @@ package com.femco.oxxo.reciboentiendaproveedores.presentation.order
 
 import android.text.Editable
 import android.widget.AutoCompleteTextView
+import androidx.appcompat.widget.AppCompatEditText
+import androidx.core.os.bundleOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.femco.oxxo.reciboentiendaproveedores.R
+import com.femco.oxxo.reciboentiendaproveedores.domain.model.OrderQRCode
 import com.femco.oxxo.reciboentiendaproveedores.domain.model.ProductScanned
 import com.femco.oxxo.reciboentiendaproveedores.domain.model.SKUProviders
 import com.femco.oxxo.reciboentiendaproveedores.domain.usecases.GetSKUUseCase
+import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.constants.DATA_QR_CODE
+import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,7 +36,8 @@ class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCa
                         OrdersState.ValidateData(true, R.drawable.disabled_rounded_button)
                     setDataInformation(listProviders.first())
                 } else {
-                    uiState.value = OrdersState.ValidateData(false, R.drawable.yellow_rounded_button)
+                    uiState.value =
+                        OrdersState.ValidateData(false, R.drawable.yellow_rounded_button)
                 }
             }
         }
@@ -97,12 +104,27 @@ class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCa
     }
 
     fun validateForm(
-        supplySourceAutoComplete: AutoCompleteTextView
+        supplySourceAutoComplete: AutoCompleteTextView,
+        grandTotalField: AppCompatEditText
     ) {
-        if (orderTYpe == 0 || supplySourceAutoComplete.text.isEmpty() || skuListScanned.isEmpty()){
+        if (orderTYpe == 0 || supplySourceAutoComplete.text.isEmpty() || skuListScanned.isEmpty()) {
             uiState.value = OrdersState.ShowMessageError
         } else {
-            uiState.value = OrdersState.ShowMessageSuccess
+            val request = OrderQRCode(
+                orderType = orderTYpe,
+                supplySource = supplySourceAutoComplete.text.toString(),
+                skuScanned = skuListScanned,
+                grandTotal = grandTotalField.text.toString().toInt(),
+                initialDateOrder = Date(timestamp).toString(),
+                finalDateOrder = Date(System.currentTimeMillis()).toString()
+            )
+            val gson = Gson()
+            val json = gson.toJson(request)
+            uiState.value = OrdersState.ShowMessageSuccess(
+                bundleOf(
+                    DATA_QR_CODE to json
+                )
+            )
         }
     }
 

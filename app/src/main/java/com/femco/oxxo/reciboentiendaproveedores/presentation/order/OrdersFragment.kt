@@ -96,7 +96,7 @@ class OrdersFragment : Fragment() {
                 is OrdersState.SetButtonsScanOrAdd -> setVisibilityButtons(it.showScan, it.showAdd)
                 is OrdersState.ReloadGrandTotal -> setGrandTotal(it.total)
                 OrdersState.ShowMessageError -> showErrorMessage()
-                OrdersState.ShowMessageSuccess -> navController?.navigate(R.id.action_q_r_viewer_fragment)
+                is OrdersState.ShowMessageSuccess -> navController?.navigate(R.id.action_q_r_viewer_fragment, it.bundle)
             }
         }
     }
@@ -146,7 +146,7 @@ class OrdersFragment : Fragment() {
                 barcodeAutoComplete.text.clear()
             }
 
-            orderTypeRadioGroup.setOnCheckedChangeListener { radioGroup, id ->
+            orderTypeRadioGroup.setOnCheckedChangeListener { _, id ->
                 viewModel.setOrderType(onRadioButtonClicked(id))
             }
 
@@ -156,7 +156,7 @@ class OrdersFragment : Fragment() {
                     positiveMessage = R.string.order_fragment_dialog_positive,
                     negativeMessage = R.string.order_fragment_dialog_negative
                 ) {
-                    viewModel.validateForm(supplySourceAutoComplete)
+                    viewModel.validateForm(supplySourceAutoComplete,grandTotalField)
                 }
             }
 

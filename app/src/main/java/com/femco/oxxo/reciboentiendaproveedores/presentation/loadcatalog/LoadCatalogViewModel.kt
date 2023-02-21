@@ -1,5 +1,6 @@
 package com.femco.oxxo.reciboentiendaproveedores.presentation.loadcatalog
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.ContentResolver
 import android.database.Cursor
@@ -71,16 +72,16 @@ class LoadCatalogViewModel @Inject constructor(
             )
         }
 
+    @SuppressLint("Range")
     private fun getFileName(uri: Uri): String? {
         var result: String? = null
         if (uri.scheme == ContentResolver.SCHEME_CONTENT) {
             val cursor: Cursor? = application.contentResolver.query(uri, null, null, null, null)
-            try {
-                if (cursor != null && cursor.moveToFirst()) {
-                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+            cursor.use { c ->
+                if (c != null && c.moveToFirst()) {
+                    result = c.getString(c.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                    c.close()
                 }
-            }finally {
-                cursor?.close()
             }
         }
         if (result == null) {
