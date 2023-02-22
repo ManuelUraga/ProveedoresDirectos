@@ -7,26 +7,29 @@
     <fragment
         android:id="@+id/OrderFragment"
         android:name="com.femco.oxxo.reciboentiendaproveedores.presentation.order.OrdersFragment"
-        android:label="@string/app_name"
-        tools:layout="@layout/fragment_orders">
-        <action
-            android:id="@+id/action_load_catalog_fragment"
-            app:destination="@id/LoadCatalogFragment" />
-        <action
-            android:id="@+id/action_q_r_viewer_fragment"
-            app:destination="@id/QRViewerFragment" />
-    </fragment>
+        android:label="@string/fragment_order"
+        tools:layout="@layout/fragment_orders"/>
 
     <fragment
         android:id="@+id/LoadCatalogFragment"
         android:name="com.femco.oxxo.reciboentiendaproveedores.presentation.loadcatalog.LoadCatalogFragment"
-        android:label="@string/load_catalog_fragment_title"
+        android:label="@string/fragment_load_catalog"
         tools:layout="@layout/fragment_load_catalog" />
 
     <fragment
         android:id="@+id/QRViewerFragment"
         android:name="com.femco.oxxo.reciboentiendaproveedores.presentation.qrviewer.QRViewerFragment"
-        android:label="@string/app_name"
+        android:label="@string/fragment_qr_viewer"
         tools:layout="@layout/fragment_q_r_viewer"/>
 
+    <action
+        android:id="@+id/action_load_catalog_fragment"
+        app:destination="@id/LoadCatalogFragment"
+        app:popEnterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"/>
+    <action
+        android:id="@+id/action_qr_viewer_fragment"
+        app:destination="@id/QRViewerFragment"
+        app:popEnterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"/>
 </navigation>

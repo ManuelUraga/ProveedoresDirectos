@@ -4,6 +4,7 @@ import android.text.Editable
 import android.widget.AutoCompleteTextView
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.core.os.bundleOf
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,20 +24,23 @@ import javax.inject.Inject
 @HiltViewModel
 class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCase) : ViewModel() {
 
-    val uiState = MutableLiveData<OrdersState>()
+    private val _uiState = MutableLiveData<OrdersState>()
+    val uiState: LiveData<OrdersState> = _uiState
+
     private val skuListScanned: MutableList<ProductScanned> = mutableListOf()
     private var timestamp: Long = 0L
     private var orderTYpe = 0
+
 
     fun validateIfSKUExisting() {
         viewModelScope.launch {
             getSKUUseCase().also { listProviders ->
                 if (listProviders.first().isNotEmpty()) {
-                    uiState.value =
+                    _uiState.value =
                         OrdersState.ValidateData(true, R.drawable.disabled_rounded_button)
                     setDataInformation(listProviders.first())
                 } else {
-                    uiState.value =
+                    _uiState.value =
                         OrdersState.ValidateData(false, R.drawable.yellow_rounded_button)
                 }
             }
@@ -47,7 +51,7 @@ class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCa
         val listSupply =
             listProviders.distinctBy { it.supplySource }.map { it.supplySource }.toList()
         val listSkU = listProviders.map { it.sku }.toList()
-        uiState.value = OrdersState.SetLists(listSupply, listSkU)
+        _uiState.value = OrdersState.SetLists(listSupply, listSkU)
     }
 
     fun insertSKUIntoList(skuScan: String) {
@@ -57,7 +61,7 @@ class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCa
         } else {
             skuListScanned.add(ProductScanned(skuScanned = skuScan))
             if (skuListScanned.size == 1) timestamp = System.currentTimeMillis()
-            uiState.value = OrdersState.SKUListState(skuListScanned)
+            _uiState.value = OrdersState.SKUListState(skuListScanned)
         }
     }
 
@@ -65,7 +69,7 @@ class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCa
         skuListScanned[position].apply {
             this.amount = skuListScanned[position].amount.plus(1)
         }
-        uiState.value = OrdersState.SKUListState(skuListScanned)
+        _uiState.value = OrdersState.SKUListState(skuListScanned)
     }
 
     fun minusProduct(position: Int) {
@@ -74,25 +78,25 @@ class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCa
                 this.amount = skuListScanned[position].amount.minus(1)
             }
         }
-        uiState.value = OrdersState.SKUListState(skuListScanned)
+        _uiState.value = OrdersState.SKUListState(skuListScanned)
     }
 
     fun removeProduct(position: Int) {
         skuListScanned.removeAt(position)
-        uiState.value = OrdersState.SKUListState(skuListScanned)
+        _uiState.value = OrdersState.SKUListState(skuListScanned)
     }
 
     fun changeValueManual(value: Int, position: Int) {
         skuListScanned[position].apply {
             this.amount = value
         }
-        uiState.value = OrdersState.SKUListState(skuListScanned)
+        _uiState.value = OrdersState.SKUListState(skuListScanned)
     }
 
     fun validateAutoComplete(it: Editable?) {
-        if (it?.isBlank() == true) uiState.value =
+        if (it?.isBlank() == true) _uiState.value =
             OrdersState.SetButtonsScanOrAdd(showScan = true, showAdd = false)
-        else uiState.value = OrdersState.SetButtonsScanOrAdd(showScan = false, showAdd = true)
+        else _uiState.value = OrdersState.SetButtonsScanOrAdd(showScan = false, showAdd = true)
     }
 
     fun reloadTotal(skus: MutableList<ProductScanned>) {
@@ -100,7 +104,7 @@ class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCa
         skus.forEach {
             grandAmount += it.amount
         }
-        uiState.value = OrdersState.ReloadGrandTotal(grandAmount)
+        _uiState.value = OrdersState.ReloadGrandTotal(grandAmount)
     }
 
     fun validateForm(
@@ -108,7 +112,7 @@ class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCa
         grandTotalField: AppCompatEditText
     ) {
         if (orderTYpe == 0 || supplySourceAutoComplete.text.isEmpty() || skuListScanned.isEmpty()) {
-            uiState.value = OrdersState.ShowMessageError
+            _uiState.value = OrdersState.ShowMessageError
         } else {
             val request = OrderQRCode(
                 orderType = orderTYpe,
@@ -120,7 +124,7 @@ class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCa
             )
             val gson = Gson()
             val json = gson.toJson(request)
-            uiState.value = OrdersState.ShowMessageSuccess(
+            _uiState.value = OrdersState.ShowMessageSuccess(
                 bundleOf(
                     DATA_QR_CODE to json
                 )
@@ -130,5 +134,11 @@ class OrdersViewModel @Inject constructor(private val getSKUUseCase: GetSKUUseCa
 
     fun setOrderType(clicked: Int) {
         orderTYpe = clicked
+    }
+
+    fun onResume() {
+        if (skuListScanned.isNotEmpty()) {
+            _uiState.value = OrdersState.SKUListState(skuListScanned)
+        }
     }
 }

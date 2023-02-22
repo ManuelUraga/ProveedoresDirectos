@@ -1,6 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Proveedores Directos</string>
-    <string name="action_settings">Settings</string>
     <!-- Strings Order Screen-->
     <string name="order_fragment_button_load_catalog">actualizar catálogo</string>
     <string name="order_fragment_radio_button_one">Generar Pedido / Preinventarista</string>
@@ -18,7 +17,6 @@
 
     <!--Strings LoadCatalog Screen-->
     <string name="load_catalog_fragment_button">Subir Catálogo</string>
-    <string name="load_catalog_fragment_title">Agregar / Actualizar Catálogo de Artículos</string>
     <string name="load_catalog_fragment_subtitle">Seleccione Archivo CSV</string>
     <string name="load_catalog_dialog_message">Carga de Información Completada</string>
     <string name="load_catalog_diloag_error_message_invalid">Revise la extensión del archivo, debe ser .CSV</string>
@@ -37,5 +35,10 @@
     <string name="main_dialog_exit_negative">No</string>
 
     <!--Strings qr viewer-->
-    <string name="hello_blank_fragment">El CÓDIGO QR ESTARÁ DISPONIBLE DURANTE %sd MINUTOS</string>
+    <string name="qr_viewer_title_counter_down">El CÓDIGO QR ESTARÁ DISPONIBLE DURANTE <![CDATA[<b><font color=#FFFF0811>%1$s</font></b>]]> MINUTOS</string>
+
+    <!--Name fragments-->
+    <string name="fragment_order">Proveedores Directos</string>
+    <string name="fragment_load_catalog">Agregar / Actualizar Catálogo de Artículos</string>
+    <string name="fragment_qr_viewer">QR</string>
 </resources>

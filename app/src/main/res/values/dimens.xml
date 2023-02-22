@@ -48,4 +48,6 @@
     <!--Icon Item-->
     <dimen name="width_image_button_item">47dp</dimen>
     <dimen name="height_image_button_item">47dp</dimen>
+    <!--Image QR size-->
+    <dimen name="height_image_qr_code">350dp</dimen>
 </resources>

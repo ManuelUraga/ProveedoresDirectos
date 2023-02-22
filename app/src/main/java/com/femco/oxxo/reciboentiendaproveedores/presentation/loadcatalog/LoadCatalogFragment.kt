@@ -37,13 +37,13 @@ class LoadCatalogFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity?.title = getString(R.string.load_catalog_fragment_title)
+        activity?.title = getString(R.string.fragment_load_catalog)
         initView()
         setObservers()
     }
 
     private fun setObservers() {
-        viewModel.loadCatalogState.observe(requireActivity()) {
+        viewModel.loadCatalogState.observe(viewLifecycleOwner) {
             when (it) {
                 is LoadCatalogState.NameFile -> setField(it.nameFile)
                 LoadCatalogState.Success -> showAlertDialog(

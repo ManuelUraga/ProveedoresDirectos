@@ -28,8 +28,10 @@ class AlertDialogWithEditText(
         builder
             .setCancelable(false)
             .setPositiveButton(R.string.load_catalog_dialog_confirm) { dialog, _ ->
-                val amount = editText.text.toString().toInt()
-                confirmInserted(amount)
+                if (editText.text.isNotBlank()) {
+                    val amount = editText.text.toString().toInt()
+                    confirmInserted(amount)
+                }
                 view.closeKeyboard()
                 dialog.dismiss()
             }

@@ -2,6 +2,7 @@ package com.femco.oxxo.reciboentiendaproveedores.presentation.order
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +12,7 @@ import androidx.camera.core.ExperimentalGetImage
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.femco.oxxo.reciboentiendaproveedores.R
 import com.femco.oxxo.reciboentiendaproveedores.databinding.FragmentOrdersBinding
@@ -32,8 +32,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class OrdersFragment : Fragment() {
 
-    private var navController: NavController? = null
-
     private lateinit var binding: FragmentOrdersBinding
 
     private val viewModel by viewModels<OrdersViewModel>()
@@ -50,12 +48,14 @@ class OrdersFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.onResume()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         activity?.title = getString(R.string.app_name)
-        val navHostFragment = requireActivity().supportFragmentManager
-            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        navController = navHostFragment.navController
         setUpAdapters()
         initListeners()
         setObserver()
@@ -85,7 +85,7 @@ class OrdersFragment : Fragment() {
 
 
     private fun setObserver() {
-        viewModel.uiState.observe(requireActivity()) {
+        viewModel.uiState.observe(viewLifecycleOwner) {
             when (it) {
                 is OrdersState.ValidateData -> enabledButtonCatalog(it.enabled, it.drawableRes)
                 is OrdersState.SKUListState -> {
@@ -96,9 +96,14 @@ class OrdersFragment : Fragment() {
                 is OrdersState.SetButtonsScanOrAdd -> setVisibilityButtons(it.showScan, it.showAdd)
                 is OrdersState.ReloadGrandTotal -> setGrandTotal(it.total)
                 OrdersState.ShowMessageError -> showErrorMessage()
-                is OrdersState.ShowMessageSuccess -> navController?.navigate(R.id.action_q_r_viewer_fragment, it.bundle)
+                is OrdersState.ShowMessageSuccess -> navigateToQR(it.bundle)
+                else -> {}
             }
         }
+    }
+
+    private fun navigateToQR(bundle: Bundle) {
+        findNavController().navigate(R.id.action_qr_viewer_fragment, bundle)
     }
 
     private fun showErrorMessage() {
@@ -121,7 +126,11 @@ class OrdersFragment : Fragment() {
 
     private fun setDataIntoAutoComplete(listSupply: List<String>, listSkU: List<String>) {
         arrayAdapterSupply =
-            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, listSupply)
+            ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_spinner_dropdown_item,
+                listSupply
+            )
         binding.supplySourceAutoComplete.setAdapter(arrayAdapterSupply)
         arrayAdapterSKUs =
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, listSkU)
@@ -134,51 +143,51 @@ class OrdersFragment : Fragment() {
     }
 
     private fun initListeners() {
-        with(binding) {
-            loadCatalogButton.setOnClickListener {
-                navController?.navigate(R.id.action_load_catalog_fragment)
-            }
-            barcodeImageButton.setOnClickListener {
-                launcher.launch(Intent(requireContext(), ScannerActivity::class.java))
-            }
-            barcodeInputImageButton.setOnClickListener {
-                viewModel.insertSKUIntoList(barcodeAutoComplete.text.toString())
-                barcodeAutoComplete.text.clear()
-            }
 
-            orderTypeRadioGroup.setOnCheckedChangeListener { _, id ->
-                viewModel.setOrderType(onRadioButtonClicked(id))
-            }
+        binding.loadCatalogButton.setOnClickListener {
+            findNavController().navigate(R.id.action_load_catalog_fragment)
+        }
+        binding.barcodeImageButton.setOnClickListener {
+            launcher.launch(Intent(requireContext(), ScannerActivity::class.java))
+        }
+        binding.barcodeInputImageButton.setOnClickListener {
+            viewModel.insertSKUIntoList(binding.barcodeAutoComplete.text.toString())
+            binding.barcodeAutoComplete.text.clear()
+        }
 
-            continueButton.setOnClickListener {
-                MyAlertDialog(requireContext()).showAlert(
-                    message = R.string.order_fragment_dialog_message,
-                    positiveMessage = R.string.order_fragment_dialog_positive,
-                    negativeMessage = R.string.order_fragment_dialog_negative
-                ) {
-                    viewModel.validateForm(supplySourceAutoComplete,grandTotalField)
-                }
-            }
+        binding.orderTypeRadioGroup.setOnCheckedChangeListener { _, id ->
+            viewModel.setOrderType(onRadioButtonClicked(id))
+        }
 
-            productListRecycler.apply {
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = productsAdapter
-            }
-            supplySourceAutoComplete.setAdapter(arrayAdapterSupply)
-            supplySourceAutoComplete.setOnItemClickListener { _, view, _, _ -> view.closeKeyboard() }
-
-            with(barcodeAutoComplete) {
-                setAdapter(arrayAdapterSKUs)
-                setOnItemClickListener { _, view, _, _ -> view.closeKeyboard() }
-                setOnClickListener {
-                    barcodeImageButton.visibility = View.GONE
-                }
-                addTextChangedListener {
-                    viewModel.validateAutoComplete(it)
-                }
+        binding.continueButton.setOnClickListener {
+            MyAlertDialog(requireContext()).showAlert(
+                message = R.string.order_fragment_dialog_message,
+                positiveMessage = R.string.order_fragment_dialog_positive,
+                negativeMessage = R.string.order_fragment_dialog_negative
+            ) {
+                viewModel.validateForm(binding.supplySourceAutoComplete, binding.grandTotalField)
             }
         }
+
+        binding.productListRecycler.apply {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = productsAdapter
+        }
+        binding.supplySourceAutoComplete.setAdapter(arrayAdapterSupply)
+        binding.supplySourceAutoComplete.setOnItemClickListener { _, view, _, _ -> view.closeKeyboard() }
+
+        with(binding.barcodeAutoComplete) {
+            setAdapter(arrayAdapterSKUs)
+            setOnItemClickListener { _, view, _, _ -> view.closeKeyboard() }
+            setOnClickListener {
+                binding.barcodeImageButton.visibility = View.GONE
+            }
+            addTextChangedListener {
+                viewModel.validateAutoComplete(it)
+            }
+        }
+
     }
 
     private fun onRadioButtonClicked(radio: Int) =
