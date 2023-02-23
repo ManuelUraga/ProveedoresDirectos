@@ -35,7 +35,9 @@
     <string name="main_dialog_exit_negative">No</string>
 
     <!--Strings qr viewer-->
-    <string name="qr_viewer_title_counter_down">El CÓDIGO QR ESTARÁ DISPONIBLE DURANTE <![CDATA[<b><font color=#FFFF0811>%1$s</font></b>]]> MINUTOS</string>
+    <string name="qr_viewer_title_counter_down">El CÓDIGO QR ESTARÁ DISPONIBLE DURANTE <![CDATA[<b><font color=#FF0811>%1$s</font></b>]]> MINUTOS</string>
+    <string name="qr_viewer_message_error_qr">The QR isn´t generate</string>
+    <string name="qr_viewer_message_error_empty">Data is empty</string>
 
     <!--Name fragments-->
     <string name="fragment_order">Proveedores Directos</string>
