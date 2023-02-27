@@ -4,12 +4,12 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.femco.oxxo.reciboentiendaproveedores.R
 import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.constants
+import com.femco.oxxo.reciboentiendaproveedores.utils.PreferencesManager
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.google.zxing.qrcode.QRCodeWriter
@@ -20,12 +20,15 @@ import javax.inject.Inject
 class QRViewerViewModel @Inject constructor() : ViewModel() {
 
     lateinit var counterDown: CountDownTimer
-    private var timeLeftInMilliseconds = 600000L
+    private var timeLeftInMilliseconds = 600L
 
     private val _uiState = MutableLiveData<QRViewerState>()
     val uiState: LiveData<QRViewerState> = _uiState
 
     fun initTimer() {
+        PreferencesManager.instance?.timerToShowQR?.let {
+            timeLeftInMilliseconds = it
+        }
         counterDown = object : CountDownTimer(timeLeftInMilliseconds, 1000) {
             override fun onTick(time: Long) {
                 timeLeftInMilliseconds = time

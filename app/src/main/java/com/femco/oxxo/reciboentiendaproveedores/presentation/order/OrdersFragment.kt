@@ -1,17 +1,20 @@
 package com.femco.oxxo.reciboentiendaproveedores.presentation.order
 
 import android.content.Intent
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ArrayAdapter
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.ExperimentalGetImage
+import androidx.core.content.ContextCompat
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.femco.oxxo.reciboentiendaproveedores.R
@@ -22,11 +25,9 @@ import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.constants.
 import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.constants.ORDER_TYPE_REPARTIDOR
 import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.constants.SCAN_REQUEST_CODE
 import com.femco.oxxo.reciboentiendaproveedores.presentation.scanning.constants.SCAN_RESULT
-import com.femco.oxxo.reciboentiendaproveedores.utils.AlertDialogWithEditText
-import com.femco.oxxo.reciboentiendaproveedores.utils.MyAlertDialog
-import com.femco.oxxo.reciboentiendaproveedores.utils.closeKeyboard
-import com.femco.oxxo.reciboentiendaproveedores.utils.setVisibility
+import com.femco.oxxo.reciboentiendaproveedores.utils.*
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.concurrent.TimeUnit
 
 @ExperimentalGetImage
 @AndroidEntryPoint
@@ -55,11 +56,44 @@ class OrdersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setToolbar()
         activity?.title = getString(R.string.app_name)
         setUpAdapters()
         initListeners()
         setObserver()
         viewModel.validateIfSKUExisting()
+    }
+
+    private fun setToolbar() {
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.menu_main, menu)
+            }
+
+            override fun onMenuItemSelected(item: MenuItem): Boolean {
+                return when (item.itemId) {
+                    R.id.timerToQR -> {
+                        AlertDialogWithEditText(
+                            requireContext(),
+                            R.string.main_dialog_timer_qr
+                        ) {
+                            val value = TimeUnit.MINUTES.toMillis(it.toLong())
+                            PreferencesManager.instance?.timerToShowQR = value
+                        }.alertDialog()
+                        return true
+                    }
+                    else -> true
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        val upArrow: Drawable? =
+            ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_back)
+        upArrow?.setColorFilter(
+            ContextCompat.getColor(requireContext(), R.color.white),
+            PorterDuff.Mode.SRC_ATOP
+        )
+        requireActivity().actionBar?.setHomeAsUpIndicator(upArrow)
     }
 
     private fun setUpAdapters() {

@@ -12,10 +12,18 @@ class PreferencesManager private constructor(context: Context) {
     }
 
     var firstTime: Boolean
-        get() = mPref.getBoolean(KEY_VALUE, false)
+        get() = mPref.getBoolean(IS_FIRST_TIME, false)
         set(value) {
             mPref.edit()
-                .putBoolean(KEY_VALUE, value)
+                .putBoolean(IS_FIRST_TIME, value)
+                .apply()
+        }
+
+    var timerToShowQR: Long
+        get() = mPref.getLong(TIMER_TO_SHOW_QR, 600000L)
+        set(value) {
+            mPref.edit()
+                .putLong(TIMER_TO_SHOW_QR, value)
                 .apply()
         }
 
@@ -33,7 +41,8 @@ class PreferencesManager private constructor(context: Context) {
 
     companion object {
         private const val PREF_NAME = "RECIBO_EN_TIENDA"
-        private const val KEY_VALUE = "IS_FIRST_TIME"
+        private const val IS_FIRST_TIME = "IS_FIRST_TIME"
+        private const val TIMER_TO_SHOW_QR = "TIMER_TO_SHOW_QR"
         private var sInstance: PreferencesManager? = null
         @Synchronized
         fun initializeInstance(context: Context) {

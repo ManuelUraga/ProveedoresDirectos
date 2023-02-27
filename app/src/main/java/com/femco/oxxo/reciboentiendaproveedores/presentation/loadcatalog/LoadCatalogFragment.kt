@@ -2,9 +2,7 @@ package com.femco.oxxo.reciboentiendaproveedores.presentation.loadcatalog
 
 import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -32,6 +30,7 @@ class LoadCatalogFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentLoadCatalogBinding.inflate(inflater, container, false)
+        setHasOptionsMenu(false)
         return binding.root
     }
 
@@ -40,6 +39,15 @@ class LoadCatalogFragment : Fragment() {
         activity?.title = getString(R.string.fragment_load_catalog)
         initView()
         setObservers()
+    }
+
+    override fun onCreateContextMenu(
+        menu: ContextMenu,
+        v: View,
+        menuInfo: ContextMenu.ContextMenuInfo?
+    ) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+        menu.clear()
     }
 
     private fun setObservers() {

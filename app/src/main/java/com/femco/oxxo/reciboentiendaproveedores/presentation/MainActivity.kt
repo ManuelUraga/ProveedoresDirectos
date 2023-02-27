@@ -1,16 +1,24 @@
 package com.femco.oxxo.reciboentiendaproveedores.presentation
 
+import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.femco.oxxo.reciboentiendaproveedores.R
 import com.femco.oxxo.reciboentiendaproveedores.databinding.ActivityMainBinding
+import com.femco.oxxo.reciboentiendaproveedores.utils.AlertDialogWithEditText
 import com.femco.oxxo.reciboentiendaproveedores.utils.MyAlertDialog
 import com.femco.oxxo.reciboentiendaproveedores.utils.PreferencesManager
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.concurrent.TimeUnit
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -29,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         setSupportActionBar(binding.toolbar)
         setupActionBarWithNavController(navController)
+
 
         if (PreferencesManager.instance?.firstTime == false) {
             PreferencesManager.instance?.firstTime = true
@@ -59,7 +68,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.popBackStack() || super.onSupportNavigateUp()

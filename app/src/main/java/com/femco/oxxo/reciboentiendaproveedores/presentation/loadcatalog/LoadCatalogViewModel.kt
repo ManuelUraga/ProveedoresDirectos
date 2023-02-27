@@ -99,7 +99,7 @@ class LoadCatalogViewModel @Inject constructor(
         for (line in readLines) {
             if (!line.contentEquals(firstElement)) {
                 val items = line.split(",")
-                if (items.size < 4) {
+                if (items.size != 4) {
                     error()
                     return
                 }

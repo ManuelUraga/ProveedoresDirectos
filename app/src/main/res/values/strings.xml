@@ -30,9 +30,10 @@
     <string name="dialog_title_confirm">Ingresar una cantidad</string>
 
     <!--Dialog Main exit-->
-    <string name="main_dialog_exit_message">¿Desea salir de la aplicación, esto elimnara los datos ya capturados?</string>
+    <string name="main_dialog_exit_message">¿Desea salir de la aplicación, esto eliminara los datos ya capturados?</string>
     <string name="main_dialog_exit_positive">Si</string>
     <string name="main_dialog_exit_negative">No</string>
+    <string name="main_dialog_timer_qr">Ingresa los minutos para mostrar el QR</string>
 
     <!--Strings qr viewer-->
     <string name="qr_viewer_title_counter_down">El CÓDIGO QR ESTARÁ DISPONIBLE DURANTE <![CDATA[<b><font color=#FF0811>%1$s</font></b>]]> MINUTOS</string>
@@ -43,4 +44,8 @@
     <string name="fragment_order">Proveedores Directos</string>
     <string name="fragment_load_catalog">Agregar / Actualizar Catálogo de Artículos</string>
     <string name="fragment_qr_viewer">QR</string>
+
+    <!--Menu options-->
+    <string name="menu_option_timer_qr">Tiempo del QR</string>
+
 </resources>
